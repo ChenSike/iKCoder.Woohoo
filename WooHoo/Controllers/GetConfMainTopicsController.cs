@@ -15,6 +15,12 @@ namespace WooHoo.Controllers
     [ApiController]
     public class GetConfMainTopicsController : WHControllerBase
     {
-        
+        [HttpGet]
+        [Filter_ConnectDB]
+        public ActionResult Action()
+        {
+            Orm_conf_topics orm_Conf_TopicsObj = (Orm_conf_topics)dbConnection.Query<Orm_conf_topics>("select * from conf_main_topics").Single();
+            return Json(orm_Conf_TopicsObj);
+        }
     }
 }
