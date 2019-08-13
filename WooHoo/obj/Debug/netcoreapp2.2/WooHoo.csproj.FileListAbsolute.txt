@@ -17,7 +17,6 @@ C:\iKCoder\iKCoder.Woohoo\WooHoo\bin\Debug\netcoreapp2.2\WooHoo.runtimeconfig.js
 C:\iKCoder\iKCoder.Woohoo\WooHoo\bin\Debug\netcoreapp2.2\WooHoo.runtimeconfig.dev.json
 C:\iKCoder\iKCoder.Woohoo\WooHoo\bin\Debug\netcoreapp2.2\WooHoo.dll
 C:\iKCoder\iKCoder.Woohoo\WooHoo\bin\Debug\netcoreapp2.2\WooHoo.pdb
-C:\iKCoder\iKCoder.Woohoo\WooHoo\obj\Debug\netcoreapp2.2\WooHoo.csprojAssemblyReference.cache
 C:\iKCoder\iKCoder.Woohoo\WooHoo\obj\Debug\netcoreapp2.2\WooHoo.csproj.CoreCompileInputs.cache
 C:\iKCoder\iKCoder.Woohoo\WooHoo\obj\Debug\netcoreapp2.2\WooHoo.RazorAssemblyInfo.cache
 C:\iKCoder\iKCoder.Woohoo\WooHoo\obj\Debug\netcoreapp2.2\WooHoo.RazorAssemblyInfo.cs
@@ -26,3 +25,5 @@ C:\iKCoder\iKCoder.Woohoo\WooHoo\obj\Debug\netcoreapp2.2\WooHoo.AssemblyInfo.cs
 C:\iKCoder\iKCoder.Woohoo\WooHoo\obj\Debug\netcoreapp2.2\WooHoo.RazorTargetAssemblyInfo.cache
 C:\iKCoder\iKCoder.Woohoo\WooHoo\obj\Debug\netcoreapp2.2\WooHoo.dll
 C:\iKCoder\iKCoder.Woohoo\WooHoo\obj\Debug\netcoreapp2.2\WooHoo.pdb
+C:\iKCoder\iKCoder.Woohoo\WooHoo\bin\Debug\netcoreapp2.2\appsettings.json
+C:\iKCoder\iKCoder.Woohoo\WooHoo\bin\Debug\netcoreapp2.2\WooHoo.xml

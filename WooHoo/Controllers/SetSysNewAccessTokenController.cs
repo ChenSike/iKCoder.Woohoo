@@ -23,7 +23,7 @@ namespace WooHoo.Controllers
             Orm_lst_access_ids lstAccessObj = new Orm_lst_access_ids();
             lstAccessObj.username = uname;
             string strQuery = "select * from lst_access_ids where username=@username";
-            Orm_lst_access_ids exsitedAccessObj = (Orm_lst_access_ids)dbConnection.Query(strQuery, lstAccessObj).Single();
+            Orm_lst_access_ids exsitedAccessObj = (Orm_lst_access_ids)dbConnection.Query< Orm_lst_access_ids>(strQuery, lstAccessObj).SingleOrDefault();
             if(exsitedAccessObj!=null)
             {
                 Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
@@ -38,7 +38,7 @@ namespace WooHoo.Controllers
                 lstAccessObj.appid = Guid.NewGuid().ToString();
                 lstAccessObj.password = password;
                 strQuery = "insert into lst_access_ids(appid,username,password) values(@appid,@username,@password)";
-                dbConnection.Execute(strQuery);
+                dbConnection.Execute(strQuery,lstAccessObj);
                 Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "200";
                 conf_ResponseMessageObj.status = "OK";

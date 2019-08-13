@@ -38,7 +38,7 @@ namespace WooHoo
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseHsts();
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
