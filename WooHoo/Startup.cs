@@ -26,6 +26,7 @@ namespace WooHoo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSession();
             services.AddCors(options =>
             options.AddPolicy("AllowSameDomain", builder => builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().AllowCredentials()));
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "Woohoo API", Version = "v1" }); });
@@ -40,6 +41,7 @@ namespace WooHoo
             }
             app.UseHsts();
             app.UseMvc();
+            app.UseSession();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

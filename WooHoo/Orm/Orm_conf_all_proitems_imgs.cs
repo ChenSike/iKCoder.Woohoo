@@ -37,5 +37,17 @@ namespace WooHoo.Orm
             get;
         }
 
+        public int index
+        {
+            set;
+            get;
+        }
+
+        public string titleimg
+        {
+            set;
+            get;
+        }
+
     }
 }

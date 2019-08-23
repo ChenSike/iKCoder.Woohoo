@@ -5,15 +5,9 @@ using System.Threading.Tasks;
 
 namespace WooHoo.Orm
 {
-    public class Orm_conf_all_users
+    public class Orm_conf_all_address
     {
         public int id
-        {
-            set;
-            get;
-        }
-
-        public string unionid
         {
             set;
             get;
@@ -25,22 +19,47 @@ namespace WooHoo.Orm
             get;
         }
 
-        public string uid
+        public string name
         {
             set;
             get;
         }
 
-        public string password
+        public string country
         {
             set;
             get;
         }
 
-        public string sessionID
+        public string state
         {
             set;
             get;
         }
+
+        public string city
+        {
+            set;
+            get;
+        }
+
+        public string district
+        {
+            set;
+            get;
+        }
+
+        public string address
+        {
+            set;
+            get;
+        }
+
+        public string phone
+        {
+            set;
+            get;
+        }
+
     }
 }

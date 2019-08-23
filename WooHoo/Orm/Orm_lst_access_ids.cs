@@ -31,11 +31,5 @@ namespace WooHoo.Orm
             get;
         }
 
-        public string seed
-        {
-            set;
-            get;
-        }
-
     }
 }

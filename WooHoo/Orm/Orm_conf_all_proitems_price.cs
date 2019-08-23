@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WooHoo.Orm
 {
-    public class Orm_conf_all_users
+    public class Orm_conf_all_proitems_price
     {
         public int id
         {
@@ -13,34 +13,29 @@ namespace WooHoo.Orm
             get;
         }
 
-        public string unionid
+        public int proid
         {
             set;
             get;
         }
 
-        public string guid
+        public double basic
         {
             set;
             get;
         }
 
-        public string uid
+        public double speceial
         {
             set;
             get;
         }
 
-        public string password
+        public int discount
         {
             set;
             get;
         }
 
-        public string sessionID
-        {
-            set;
-            get;
-        }
     }
 }

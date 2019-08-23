@@ -15,7 +15,7 @@ namespace WooHoo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SetConfUserController : WHControllerBase
+    public class SetConfAllUserController : WHControllerBase
     {
         [HttpPost]
         [Filter.Filter_ConnectDB]
