@@ -15,6 +15,12 @@ namespace WooHoo.Controllers
     [ApiController]
     public class SetSysRegCalledController : WHControllerBase
     {
+        /// <summary>
+        /// 系统API：注册访问TOKEN，每次调用以后会获得一个TOKEN，在后续访问任意访问API中必须带上，可以是用QUERYSTRING或者COOKIE的方式，COOKIENAME:token,Queryname:token、appid
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns>Token</returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string username,string password)

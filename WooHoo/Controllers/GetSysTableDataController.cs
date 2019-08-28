@@ -16,6 +16,11 @@ namespace WooHoo.Controllers
     [ApiController]
     public class GetSysTableDataController : WHControllerBase
     {
+        /// <summary>
+        /// 获取数据表的数据
+        /// </summary>
+        /// <param name="tablename"></param>
+        /// <returns></returns>
         [HttpGet]
         [Filter.Filter_SysAuthor]
         [Filter.Filter_ConnectDB]

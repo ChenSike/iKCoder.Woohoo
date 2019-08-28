@@ -16,6 +16,10 @@ namespace WooHoo.Controllers
     [ApiController]
     public class GetConfMainTypesController : WHControllerBase
     {
+        /// <summary>
+        /// 获取首页
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Filter_ConnectDB]
         public ActionResult action()

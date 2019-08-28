@@ -14,6 +14,17 @@ namespace WooHoo.Controllers
     [ApiController]
     public class SetConfAllUpdateAddressController : WHControllerBase
     {
+        /// <summary>
+        /// 更新收货地址数据，更新的时候，所有的数据点需要传递到后台
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <param name="name"></param>
+        /// <param name="country"></param>
+        /// <param name="state"></param>
+        /// <param name="city"></param>
+        /// <param name="district"></param>
+        /// <param name="address"></param>
+        /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string guid, string name, string country, string state, string city, string district, string address)

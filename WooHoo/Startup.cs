@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using System.IO;
 
 namespace WooHoo
 {
@@ -29,7 +30,12 @@ namespace WooHoo
             services.AddSession();
             services.AddCors(options =>
             options.AddPolicy("AllowSameDomain", builder => builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().AllowCredentials()));
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "Woohoo API", Version = "v1" }); });
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new Info { Title = "Woohoo API", Version = "v1" });
+                var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+                var xmlPath = Path.Combine(basePath, "Woohoo.xml");
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

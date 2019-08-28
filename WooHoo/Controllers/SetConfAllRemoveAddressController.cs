@@ -14,9 +14,14 @@ namespace WooHoo.Controllers
     [ApiController]
     public class SetConfAllRemoveAddressController : WHControllerBase
     {
+        /// <summary>
+        /// 移除一个收货地址
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(string guid, string name, string country, string state, string city, string district, string address)
+        public ActionResult Action(string guid)
         {
             try
             {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WooHoo.Orm
 {
-    public class Orm_conf_topics
+    public class Orm_conf_main_topics
     {
         public int id
         {
@@ -32,6 +32,12 @@ namespace WooHoo.Orm
         }
 
         public string action
+        {
+            set;
+            get;
+        }
+
+        public string selectedmain
         {
             set;
             get;

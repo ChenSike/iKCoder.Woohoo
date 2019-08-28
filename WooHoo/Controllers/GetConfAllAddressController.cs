@@ -14,6 +14,11 @@ namespace WooHoo.Controllers
     [ApiController]
     public class GetConfAllAddressController : WHControllerBase
     {
+        /// <summary>
+        /// 获取所有用户收货地址列表
+        /// </summary>
+        /// <param name="guid">用户GUID</param>
+        /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string guid)

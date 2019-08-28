@@ -14,6 +14,17 @@ namespace WooHoo.Controllers
     [ApiController]
     public class SetConfAllNewAddressController : WHControllerBase
     {
+        /// <summary>
+        /// 建立一个新的收货地址
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <param name="name"></param>
+        /// <param name="country"></param>
+        /// <param name="state"></param>
+        /// <param name="city"></param>
+        /// <param name="district"></param>
+        /// <param name="address"></param>
+        /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string guid,string name,string country,string state,string city,string district,string address)

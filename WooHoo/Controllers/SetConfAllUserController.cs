@@ -17,6 +17,12 @@ namespace WooHoo.Controllers
     [ApiController]
     public class SetConfAllUserController : WHControllerBase
     {
+        /// <summary>
+        /// 解密微信USERDATA并且建立GUID，GUID为CLIENT的唯一标识，与UNIONID对应
+        /// </summary>
+        /// <param name="userdata"></param>
+        /// <param name="sesionKey"></param>
+        /// <returns>GUID</returns>
         [HttpPost]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string userdata,string sesionKey)

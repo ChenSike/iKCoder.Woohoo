@@ -15,6 +15,12 @@ namespace WooHoo.Controllers
     [ApiController]
     public class SetSysNewAccessTokenController : WooHoo.Base.WHControllerBase
     {
+        /// <summary>
+        /// 系统API：创建一个访问API的用户
+        /// </summary>
+        /// <param name="uname"></param>
+        /// <param name="password"></param>
+        /// <returns>用户的基础信息：APPID\UNAME\PASSWORD</returns>
         [HttpGet]
         [Filter_SysAuthor]
         [Filter_ConnectDB]

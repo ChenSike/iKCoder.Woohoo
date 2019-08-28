@@ -14,7 +14,11 @@ namespace WooHoo.Controllers
     [ApiController]
     public class SetConfAllULoginController : WHControllerBase
     {
-        
+        /// <summary>
+        /// CLIENT微信登录
+        /// </summary>
+        /// <param name="unionID"></param>
+        /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string unionID)

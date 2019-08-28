@@ -14,6 +14,7 @@ namespace WooHoo.Controllers
     [ApiController]
     public class SetConfAllULoginByPageControllerController : WHControllerBase
     {
+        
         [HttpGet]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string uid, string password)

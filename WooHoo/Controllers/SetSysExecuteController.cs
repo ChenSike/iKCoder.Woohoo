@@ -17,6 +17,11 @@ namespace WooHoo.Controllers
     [ApiController]
     public class SetSysExecuteController : WHControllerBase
     {
+        /// <summary>
+        /// 系统API：执行所有DB脚本
+        /// </summary>
+        /// <param name="script"></param>
+        /// <returns></returns>
         [HttpPost]
         [Filter_SysAuthor]
         [Filter_ConnectDB]

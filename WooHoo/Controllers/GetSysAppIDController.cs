@@ -16,6 +16,12 @@ namespace WooHoo.Controllers
     [ApiController]
     public class GetSysAppIDController : WHControllerBase
     {
+        /// <summary>
+        /// 获取系统用户APPID
+        /// </summary>
+        /// <param name="uname"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpGet]
         [Filter.Filter_SysAuthor]
         [Filter.Filter_ConnectDB]

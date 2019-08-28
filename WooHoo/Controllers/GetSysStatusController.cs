@@ -13,6 +13,10 @@ namespace WooHoo.Controllers
     [ApiController]
     public class GetSysStatusController : WooHoo.Base.WHControllerBase
     {
+        /// <summary>
+        /// 判断系统是否正常运作
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
         [Filter.Filter_SysAuthor]

@@ -15,6 +15,11 @@ namespace WooHoo.Controllers
     [ApiController]
     public class GetConfAllProItemController : WHControllerBase
     {
+        /// <summary>
+        /// 获取具体产品信息
+        /// </summary>
+        /// <param name="proid"></param>
+        /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(int proid)

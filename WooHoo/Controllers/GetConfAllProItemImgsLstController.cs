@@ -15,6 +15,12 @@ namespace WooHoo.Controllers
     [ApiController]
     public class GetConfAllProItemImgsLstController : WHControllerBase
     {
+        /// <summary>
+        /// 获取具体产品图片列表
+        /// </summary>
+        /// <param name="proid"></param>
+        /// <param name="titleimg">如果为1，则为标题图像</param>
+        /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(int proid,string titleimg = "0")

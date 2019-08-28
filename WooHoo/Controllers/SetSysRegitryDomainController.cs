@@ -16,7 +16,12 @@ namespace WooHoo.Controllers
     [ApiController]
     public class SetSysRestryDomainController : WHControllerBase
     {
-        
+        /// <summary>
+        /// 系统API：用于REMOTE CALLED的DOMAIN注册，如果没有注册，在访问的时候会被拒绝。
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpGet]
         [Filter_SysAuthor]
         [Filter_ConnectDB]

@@ -15,11 +15,15 @@ namespace WooHoo.Controllers
     [ApiController]
     public class GetConfMainTopicsController : WHControllerBase
     {
+        /// <summary>
+        /// 获取首页Topic配置
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Filter_ConnectDB]
         public ActionResult Action()
         {
-            Orm_conf_topics orm_Conf_TopicsObj = (Orm_conf_topics)dbConnection.Query<Orm_conf_topics>("select * from conf_main_topics").Single();
+            Orm.Orm_conf_main_topics orm_Conf_TopicsObj = (Orm_conf_main_topics)dbConnection.Query<Orm_conf_main_topics>("select * from conf_main_topics").Single();
             return Json(orm_Conf_TopicsObj);
         }
     }

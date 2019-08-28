@@ -11,10 +11,16 @@ using WooHoo.Orm;
 
 namespace WooHoo.Controllers
 {
+   
     [Route("api/[controller]")]
     [ApiController]
     public class GetConfLstTypesProitemsController : WHControllerBase
     {
+        /// <summary>
+        ///  获取归属分类产品配置，范例为：大型绿植、中型绿植、小型绿植
+        /// </summary>
+        /// <param name="lsttypeid"></param>
+        /// <returns></returns>
         [HttpGet]
         [Filter_ConnectDB]
         public ActionResult Action(int lsttypeid)

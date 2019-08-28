@@ -60,6 +60,11 @@ namespace WooHoo.Controllers
     [ApiController]
     public class GetConfAllShopingCartController : WHControllerBase
     {
+        /// <summary>
+        /// 获取购物车信息
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string guid)

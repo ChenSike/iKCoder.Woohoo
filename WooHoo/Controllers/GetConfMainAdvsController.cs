@@ -11,7 +11,9 @@ using WooHoo.Orm;
 
 namespace WooHoo.Controllers
 {
-
+    /// <summary>
+    /// 获取首页TOP ADVS配置
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class GetConfMainAdvsController : Base.WHControllerBase
