@@ -15,32 +15,27 @@ namespace WooHoo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SetConfAllUserController : WHControllerBase
+    public class SetConfAllNewUserController : WHControllerBase
     {
         /// <summary>
-        /// 解密微信USERDATA并且建立GUID，GUID为CLIENT的唯一标识，与UNIONID对应
+        /// 建立一个新用户，默认为空UID, 空PASSWORD，需要重置
         /// </summary>
-        /// <param name="userdata"></param>
-        /// <param name="sesionKey"></param>
+        /// <param name="code"></param>
         /// <returns>GUID</returns>
         [HttpPost]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(string userdata,string sesionKey)
+        public ActionResult Action(string code)
         {
-            AES aesObj = new AES();
-            aesObj.optionalKey = sesionKey;
-            string deAESData = aesObj.AesDecrypt(userdata);
-            Orm_conf_wcuserinfo JsonUserObj = (Orm_conf_wcuserinfo)JsonConvert.DeserializeObject(deAESData);
-            string unionID = JsonUserObj.uniodId;
+            string openid = Global.GlobalFunctions.GetOpenIDFromWX(code);
             Orm_conf_all_users orm_Conf_All_Users = new Orm_conf_all_users();
-            orm_Conf_All_Users.unionid = unionID;
-            string query = "select * from conf_all_users where unionid=@unionid";
+            orm_Conf_All_Users.openid = openid;
+            string query = "select * from conf_all_users where openid=@openid";
             orm_Conf_All_Users = (Orm_conf_all_users)dbConnection.Query<Orm_conf_all_users>(query).SingleOrDefault();
             Conf_ResponseMessage conf_ResponseMessageObj;
             if (orm_Conf_All_Users==null)
             {
                 orm_Conf_All_Users.guid = Guid.NewGuid().ToString();
-                query = "insert into conf_all_users(unionid,guid) values(@unionid,@guid)";
+                query = "insert into conf_all_users(openid,guid) values(@openid,@guid)";
                 dbConnection.Execute(query);
                 conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "200";
@@ -52,10 +47,10 @@ namespace WooHoo.Controllers
             else
             {
                 conf_ResponseMessageObj = new Conf_ResponseMessage();
-                conf_ResponseMessageObj.code = "200";
-                conf_ResponseMessageObj.status = "ok";
-                conf_ResponseMessageObj.message = "Executed";
-                HttpContext.Response.StatusCode = 200;
+                conf_ResponseMessageObj.code = "500";
+                conf_ResponseMessageObj.status = "error";
+                conf_ResponseMessageObj.message = "Faild to create ";
+                HttpContext.Response.StatusCode = 500;
                 return Json(conf_ResponseMessageObj);
             }
         }

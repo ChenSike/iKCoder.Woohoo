@@ -17,13 +17,13 @@ namespace WooHoo.Controllers
         /// <summary>
         /// CLIENT微信登录
         /// </summary>
-        /// <param name="unionID"></param>
+        /// <param name="openid"></param>
         /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(string unionID)
+        public ActionResult Action(string openid)
         {
-            if(string.IsNullOrEmpty(unionID))
+            if(string.IsNullOrEmpty(openid))
             {
                 Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "424";
@@ -35,8 +35,8 @@ namespace WooHoo.Controllers
             else
             {
                 Orm.Orm_conf_all_users orm_Conf_All_Users = new Orm.Orm_conf_all_users();
-                orm_Conf_All_Users.unionid = unionID;
-                string query = "select * from conf_all_users where unionid=@unionid";
+                orm_Conf_All_Users.openid = openid;
+                string query = "select * from conf_all_users where openid=@openid";
                 Orm.Orm_conf_all_users orm_Conf_All_Users_Selected = dbConnection.Query<Orm.Orm_conf_all_users>(query, orm_Conf_All_Users).SingleOrDefault();
                 if(orm_Conf_All_Users_Selected==null)
                 {
@@ -52,7 +52,7 @@ namespace WooHoo.Controllers
                     string sessionID = HttpContext.Session.Id.ToString();
                     HttpContext.Session.SetString("guid", orm_Conf_All_Users_Selected.guid);
                     HttpContext.Session.SetString("regdt", DateTime.Now.ToString());
-                    HttpContext.Session.SetString("unionid", orm_Conf_All_Users_Selected.unionid);
+                    HttpContext.Session.SetString("openid", orm_Conf_All_Users_Selected.openid);
                     orm_Conf_All_Users_Selected.sessionID = sessionID;
                     return Json(orm_Conf_All_Users_Selected);
                 }

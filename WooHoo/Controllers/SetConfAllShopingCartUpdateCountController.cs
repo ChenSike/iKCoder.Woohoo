@@ -12,17 +12,17 @@ namespace WooHoo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SetConfAllShopingCartRemoveItemController : WHControllerBase
+    public class SetConfAllShopingCartUpdateCountController : WHControllerBase
     {
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(int id, int count)
+        public ActionResult Action(int id,int count)
         {
             Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart = new Orm.Orm_conf_all_shopcart();
             orm_Conf_All_Shopcart.id = id;
             orm_Conf_All_Shopcart.count = count;
             orm_Conf_All_Shopcart.udt = DateTime.Now.ToString();
-            string query = "delete from conf_all_shopcart where id=@id";
+            string query = "update conf_all_shopcart set count=@count,utd=@utd where id=@id";
             dbConnection.Execute(query, orm_Conf_All_Shopcart);
             Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
             conf_ResponseMessageObj.code = "200";

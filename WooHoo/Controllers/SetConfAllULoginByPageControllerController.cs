@@ -49,7 +49,7 @@ namespace WooHoo.Controllers
                     string sessionID = HttpContext.Session.Id.ToString();
                     HttpContext.Session.SetString("guid", orm_Conf_All_Users_Selected.guid);
                     HttpContext.Session.SetString("regdt", DateTime.Now.ToString());
-                    HttpContext.Session.SetString("unionid", orm_Conf_All_Users_Selected.unionid);
+                    HttpContext.Session.SetString("openid", orm_Conf_All_Users_Selected.openid);
                     HttpContext.Response.Cookies.Append("guid", orm_Conf_All_Users_Selected.guid);
                     return Json(orm_Conf_All_Users_Selected);
                 }

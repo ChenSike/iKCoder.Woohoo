@@ -13,7 +13,7 @@ namespace WooHoo.Orm
             get;
         }
 
-        public string unionid
+        public string openid
         {
             set;
             get;
