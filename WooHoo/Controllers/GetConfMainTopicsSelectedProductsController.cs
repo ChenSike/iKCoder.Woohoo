@@ -61,51 +61,35 @@ namespace WooHoo.Controllers
         /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action()
+        public ActionResult Action(int topicid)
         {
             List<JC_TopicProducts> result = new List<JC_TopicProducts>();
-            List<int> topics_ids = new List<int>();
-            List<int> types_ids = new List<int>();
-            string query = "select * from conf_main_topics where selectedmain=1";
-            List<Orm.Orm_conf_main_topics> orm_Conf_Main_Topics = dbConnection.Query<Orm.Orm_conf_main_topics>(query).ToList();
-            foreach(Orm.Orm_conf_main_topics orm_Conf_Main_Topics_tmp in orm_Conf_Main_Topics)
+            string query = "select * from conf_all_proitems where id in ( select proid from conf_main_topics_products where topicsid = " + topicid + ") ";
+            List<Orm.Orm_conf_all_proitems> lst_Orm_conf_all_proitems = dbConnection.Query<Orm.Orm_conf_all_proitems>(query).ToList();
+            foreach(Orm.Orm_conf_all_proitems orm_Conf_All_Proitems_tmp in lst_Orm_conf_all_proitems)
             {
-                query = "select * from conf_main_topics_products where topicsid=" + orm_Conf_Main_Topics_tmp.id;
-                
-                if (!topics_ids.Contains(orm_Conf_Main_Topics_tmp.id))
-                    topics_ids.Add(orm_Conf_Main_Topics_tmp.id);
-            }
-            query = "select * from conf_main_lsttypes where selectedmain=1";
-            List<Orm.Orm_conf_main_lsttypes> orm_Conf_Main_Lsttypes = dbConnection.Query<Orm.Orm_conf_main_lsttypes>(query).ToList();
-            foreach(Orm.Orm_conf_main_lsttypes orm_Conf_Main_Lsttypes_tmp in orm_Conf_Main_Lsttypes)
-            {
-                if (types_ids.Contains(orm_Conf_Main_Lsttypes_tmp.id))
-                    types_ids.Add(orm_Conf_Main_Lsttypes_tmp.id);
-            }
-            foreach(int tmp_proid in topics_ids)
-            {
-                JC_TopicProducts newItem = new JC_TopicProducts();
-                newItem.proid = tmp_proid;
-                result.Add(newItem);
-            }
-            foreach(int tmp_proid in types_ids)
-            {
-                JC_TopicProducts newItem = new JC_TopicProducts();
-                newItem.proid = tmp_proid;
-                result.Add(newItem);
-            }
-            foreach(JC_TopicProducts tmp_jC_TopicProducts in result)
-            {
-                query = "select * from conf_all_proitems where id=" + tmp_jC_TopicProducts.proid;
-                Orm.Orm_conf_all_proitems orm_Conf_All_Proitems = dbConnection.Query<Orm.Orm_conf_all_proitems>(query).SingleOrDefault();
-                tmp_jC_TopicProducts.title = orm_Conf_All_Proitems.title;
-                query = "select * from conf_all_proitems_price where proid="+ tmp_jC_TopicProducts.proid;
+                JC_TopicProducts newitem = new JC_TopicProducts();
+                newitem.proid = orm_Conf_All_Proitems_tmp.id;
+                newitem.title = orm_Conf_All_Proitems_tmp.title;
+                query = "select * from conf_all_proitems_price where proid=" + orm_Conf_All_Proitems_tmp.id;
                 Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).SingleOrDefault();
-                tmp_jC_TopicProducts.basicprice = orm_Conf_All_Proitems_Price.basic;
-                tmp_jC_TopicProducts.price = orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * orm_Conf_All_Proitems_Price.discount : orm_Conf_All_Proitems_Price.basic;
-                query = "select * from conf_all_proitems_imgs where proid=" + tmp_jC_TopicProducts.proid;
+                if (orm_Conf_All_Proitems_Price != null)
+                {
+                    newitem.basicprice = orm_Conf_All_Proitems_Price.basic;
+                    newitem.price = orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * orm_Conf_All_Proitems_Price.discount : orm_Conf_All_Proitems_Price.basic;
+                }
+                else
+                {
+                    newitem.basicprice = 0;
+                    newitem.price = 0;
+                }
+                query = "select * from conf_all_proitems_imgs where proid=" + newitem.proid;
                 Orm.Orm_conf_all_proitems_imgs orm_Conf_All_Proitems_Imgs = dbConnection.Query<Orm.Orm_conf_all_proitems_imgs>(query).SingleOrDefault();
-                tmp_jC_TopicProducts.img = orm_Conf_All_Proitems_Imgs.imgpath;
+                if (orm_Conf_All_Proitems_Imgs != null)
+                {
+                    newitem.img = orm_Conf_All_Proitems_Imgs.imgpath;
+                }
+                result.Add(newitem);
             }
             return Json(result);
         }
