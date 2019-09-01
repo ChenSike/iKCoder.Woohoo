@@ -5,9 +5,27 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace WooHoo.Global
 {
+
+    public class JC_WXUserInfo
+    {
+        public string session_key
+        {
+            set;
+            get;
+        }
+
+        public string openid
+        {
+            set;
+            get;
+        }
+
+    }
+
     public class GlobalFunctions
     {
 
@@ -29,19 +47,8 @@ namespace WooHoo.Global
             sr.Close();
             ioStream.Close();
             response.Close();
-            string key = "\"openid\":\"";
-            int startIndex = html.IndexOf(key);
-            if (startIndex != -1)
-            {
-                int endIndex = html.IndexOf("\",", startIndex);
-                string openid = html.Substring(startIndex + key.Length, endIndex - startIndex - key.Length);
-                return openid;
-
-            }
-            else
-            {
-                return string.Empty;
-            }
+            JC_WXUserInfo jC_WXUserInfoObj = JsonConvert.DeserializeObject<JC_WXUserInfo>(html);
+            return jC_WXUserInfoObj.openid;
         }
     }
 }

@@ -30,10 +30,11 @@ namespace WooHoo.Controllers
             Orm_conf_all_users orm_Conf_All_Users = new Orm_conf_all_users();
             orm_Conf_All_Users.openid = openid;
             string query = "select * from conf_all_users where openid=@openid";
-            orm_Conf_All_Users = (Orm_conf_all_users)dbConnection.Query<Orm_conf_all_users>(query).SingleOrDefault();
+            orm_Conf_All_Users = (Orm_conf_all_users)dbConnection.Query<Orm_conf_all_users>(query,orm_Conf_All_Users).SingleOrDefault();
             Conf_ResponseMessage conf_ResponseMessageObj;
             if (orm_Conf_All_Users==null)
             {
+                orm_Conf_All_Users = new Orm_conf_all_users();
                 orm_Conf_All_Users.guid = Guid.NewGuid().ToString();
                 query = "insert into conf_all_users(openid,guid) values(@openid,@guid)";
                 dbConnection.Execute(query);
