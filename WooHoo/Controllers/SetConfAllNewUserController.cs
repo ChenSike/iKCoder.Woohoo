@@ -37,7 +37,7 @@ namespace WooHoo.Controllers
                 orm_Conf_All_Users = new Orm_conf_all_users();
                 orm_Conf_All_Users.guid = Guid.NewGuid().ToString();
                 query = "insert into conf_all_users(openid,guid) values(@openid,@guid)";
-                dbConnection.Execute(query);
+                dbConnection.Execute(query,orm_Conf_All_Users);
                 conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "200";
                 conf_ResponseMessageObj.status = "ok";
