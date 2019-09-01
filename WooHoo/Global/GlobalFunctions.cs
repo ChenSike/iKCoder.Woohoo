@@ -17,6 +17,9 @@ namespace WooHoo.Global
 
         public static string GetOpenIDFromWX(string code)
         {
+            WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$appid}", AppId);
+            WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$secret}", Secret);
+            WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$code}", code);
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(WX_API_Get_OpenID);
             request.Method = "GET";
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
@@ -26,7 +29,6 @@ namespace WooHoo.Global
             sr.Close();
             ioStream.Close();
             response.Close();
-
             string key = "\"openid\":\"";
             int startIndex = html.IndexOf(key);
             if (startIndex != -1)
