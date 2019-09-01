@@ -36,6 +36,7 @@ namespace WooHoo.Controllers
             {
                 orm_Conf_All_Users = new Orm_conf_all_users();
                 orm_Conf_All_Users.guid = Guid.NewGuid().ToString();
+                orm_Conf_All_Users.openid = openid;
                 query = "insert into conf_all_users(openid,guid) values(@openid,@guid)";
                 dbConnection.Execute(query,orm_Conf_All_Users);
                 conf_ResponseMessageObj = new Conf_ResponseMessage();

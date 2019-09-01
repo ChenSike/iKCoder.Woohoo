@@ -43,5 +43,11 @@ namespace WooHoo.Orm
             get;
         }
 
+        public string img
+        {
+            set;
+            get;
+        }
+
     }
 }

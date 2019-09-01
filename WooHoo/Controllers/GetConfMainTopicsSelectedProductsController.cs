@@ -70,7 +70,9 @@ namespace WooHoo.Controllers
             List<Orm.Orm_conf_main_topics> orm_Conf_Main_Topics = dbConnection.Query<Orm.Orm_conf_main_topics>(query).ToList();
             foreach(Orm.Orm_conf_main_topics orm_Conf_Main_Topics_tmp in orm_Conf_Main_Topics)
             {
-                if(!topics_ids.Contains(orm_Conf_Main_Topics_tmp.id))
+                query = "select * from conf_main_topics_products where topicsid=" + orm_Conf_Main_Topics_tmp.id;
+                
+                if (!topics_ids.Contains(orm_Conf_Main_Topics_tmp.id))
                     topics_ids.Add(orm_Conf_Main_Topics_tmp.id);
             }
             query = "select * from conf_main_lsttypes where selectedmain=1";
