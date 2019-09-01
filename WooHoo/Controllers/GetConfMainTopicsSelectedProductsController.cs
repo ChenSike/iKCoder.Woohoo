@@ -76,7 +76,7 @@ namespace WooHoo.Controllers
                 if (orm_Conf_All_Proitems_Price != null)
                 {
                     newitem.basicprice = orm_Conf_All_Proitems_Price.basic;
-                    newitem.price = orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * orm_Conf_All_Proitems_Price.discount : orm_Conf_All_Proitems_Price.basic;
+                    newitem.price = orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * (orm_Conf_All_Proitems_Price.discount / 100.0): orm_Conf_All_Proitems_Price.basic;
                 }
                 else
                 {

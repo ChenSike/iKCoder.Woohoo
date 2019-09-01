@@ -13,17 +13,14 @@ namespace WooHoo.Controllers
     [ApiController]
     public class GetConfCurrentOrdersController : WHControllerBase
     {
-        /*
-
         [HttpGet]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string guid)
         {
             string query = "select * from conf_all_orders where guid=" + guid;
             Orm.Orm_conf_all_orders orm_Conf_All_Orders_Obj = new Orm.Orm_conf_all_orders();
-
+            List<Orm.Orm_conf_all_orders> lst_orders = dbConnection.Query<Orm.Orm_conf_all_orders>(query).ToList();
+            return Json(lst_orders);
         }
-        */
-
     }
 }
