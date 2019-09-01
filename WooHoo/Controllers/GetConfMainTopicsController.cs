@@ -23,7 +23,7 @@ namespace WooHoo.Controllers
         [Filter_ConnectDB]
         public ActionResult Action()
         {
-            Orm.Orm_conf_main_topics orm_Conf_TopicsObj = (Orm_conf_main_topics)dbConnection.Query<Orm_conf_main_topics>("select * from conf_main_topics").Single();
+            List<Orm.Orm_conf_main_topics> orm_Conf_TopicsObj = dbConnection.Query<Orm_conf_main_topics>("select * from conf_main_topics").ToList();
             return Json(orm_Conf_TopicsObj);
         }
     }
