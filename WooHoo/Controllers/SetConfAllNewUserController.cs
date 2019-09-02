@@ -37,10 +37,9 @@ namespace WooHoo.Controllers
                 HttpContext.Response.StatusCode = 500;
                 return Json(conf_ResponseMessageObj);
             }
-            Orm_conf_all_users orm_Conf_All_Users = new Orm_conf_all_users();
-            orm_Conf_All_Users.openid = openid;
-            string query = "select * from conf_all_users where openid=@openid";
-            orm_Conf_All_Users = (Orm_conf_all_users)dbConnection.Query<Orm_conf_all_users>(query,orm_Conf_All_Users).SingleOrDefault();            
+            Orm_conf_all_users orm_Conf_All_Users;
+            string query = "select * from conf_all_users where openid=" + openid;
+            orm_Conf_All_Users = (Orm_conf_all_users)dbConnection.Query<Orm_conf_all_users>(query).Single();            
             if (orm_Conf_All_Users==null)
             {
                 orm_Conf_All_Users = new Orm_conf_all_users();
