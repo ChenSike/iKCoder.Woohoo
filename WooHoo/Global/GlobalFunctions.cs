@@ -40,6 +40,7 @@ namespace WooHoo.Global
             XmlDocument doc = new XmlDocument();
             doc.LoadXml("<root></root>");
             XmlNode rootNode = doc.SelectSingleNode("/root");
+            doc.Save("LOG.xml");
             string TestVAL = "";
             try
             {
