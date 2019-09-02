@@ -22,7 +22,7 @@ namespace WooHoo.Global
 
         public void AddRecord(string title , string value)
         {
-            string recordValue = rootNode.InnerText + " | title | : " + value;
+            string recordValue = rootNode.InnerText + " | "+title+" | : " + value;
             rootNode.InnerText = recordValue;
             doc.Save(LogName + ".xml");
         }
