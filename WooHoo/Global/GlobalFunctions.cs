@@ -67,6 +67,7 @@ namespace WooHoo.Global
                 fs.Flush();
                 sw.Close();
                 fs.Close();
+                return "";
             }
         }
     }
