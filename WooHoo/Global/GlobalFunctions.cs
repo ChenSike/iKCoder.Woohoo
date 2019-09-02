@@ -55,9 +55,9 @@ namespace WooHoo.Global
             }
             catch(Exception err)
             {
-                if (!File.Exists("WX_LOGIN_LOG.txt"))
-                    File.Create("WX_LOGIN_LOG.txt");
-                FileStream fs = new FileStream("WX_LOGIN_LOG.txt", FileMode.Append);
+                if (!File.Exists("c:\\WX_LOGIN_LOG.txt"))
+                    File.Create("c:\\WX_LOGIN_LOG.txt");
+                FileStream fs = new FileStream("c:\\WX_LOGIN_LOG.txt", FileMode.Append);
                 StreamWriter sw = new StreamWriter(fs);
                 sw.WriteLine("Time:" + DateTime.Now);
                 sw.WriteLine("stack:" + err.StackTrace);
