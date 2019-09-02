@@ -27,7 +27,7 @@ namespace WooHoo.Controllers
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string code)
         {
-            Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("SetConfAllNewUser");
+            Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("NewUser");
             Conf_ResponseMessage conf_ResponseMessageObj;
             string openid = Global.GlobalFunctions.GetOpenIDFromWX(code);
             globalTestingLog.AddRecord("openid", openid);
