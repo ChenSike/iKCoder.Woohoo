@@ -55,13 +55,14 @@ namespace WooHoo.Global
                 Stream ioStream = response.GetResponseStream();
                 StreamReader sr = new StreamReader(ioStream, Encoding.UTF8);
                 string html = sr.ReadToEnd();
-                TestVAL = TestVAL + "Return:" + html;
+                TestVAL = TestVAL + "| Return:" + html;
                 sr.Close();
                 ioStream.Close();
                 response.Close();
+                JC_WXUserInfo jC_WXUserInfoObj = JsonConvert.DeserializeObject<JC_WXUserInfo>(html);
+                TestVAL = TestVAL + " | OpenID：" + jC_WXUserInfoObj.openid;
                 rootNode.InnerText = TestVAL;
                 doc.Save("LOG.xml");
-                JC_WXUserInfo jC_WXUserInfoObj = JsonConvert.DeserializeObject<JC_WXUserInfo>(html);
                 return jC_WXUserInfoObj.openid;
             }
             catch(Exception err)

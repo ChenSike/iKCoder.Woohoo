@@ -26,12 +26,21 @@ namespace WooHoo.Controllers
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string code)
         {
+            Conf_ResponseMessage conf_ResponseMessageObj;
             string openid = Global.GlobalFunctions.GetOpenIDFromWX(code);
+            if(openid == "")
+            {
+                conf_ResponseMessageObj = new Conf_ResponseMessage();
+                conf_ResponseMessageObj.code = "500";
+                conf_ResponseMessageObj.status = "error";
+                conf_ResponseMessageObj.message = "User existed.";
+                HttpContext.Response.StatusCode = 500;
+                return Json(conf_ResponseMessageObj);
+            }
             Orm_conf_all_users orm_Conf_All_Users = new Orm_conf_all_users();
             orm_Conf_All_Users.openid = openid;
             string query = "select * from conf_all_users where openid=@openid";
-            orm_Conf_All_Users = (Orm_conf_all_users)dbConnection.Query<Orm_conf_all_users>(query,orm_Conf_All_Users).SingleOrDefault();
-            Conf_ResponseMessage conf_ResponseMessageObj;
+            orm_Conf_All_Users = (Orm_conf_all_users)dbConnection.Query<Orm_conf_all_users>(query,orm_Conf_All_Users).SingleOrDefault();            
             if (orm_Conf_All_Users==null)
             {
                 orm_Conf_All_Users = new Orm_conf_all_users();
