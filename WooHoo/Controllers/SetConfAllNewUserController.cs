@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Dapper;
 
 
+
 namespace WooHoo.Controllers
 {
     [Route("api/[controller]")]
@@ -26,36 +27,55 @@ namespace WooHoo.Controllers
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string code)
         {
+            Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("SetConfAllNewUser");
             Conf_ResponseMessage conf_ResponseMessageObj;
             string openid = Global.GlobalFunctions.GetOpenIDFromWX(code);
-            if(openid == "")
+            globalTestingLog.AddRecord("openid", openid);
+            try
             {
-                conf_ResponseMessageObj = new Conf_ResponseMessage();
-                conf_ResponseMessageObj.code = "500";
-                conf_ResponseMessageObj.status = "error";
-                conf_ResponseMessageObj.message = "User existed.";
-                HttpContext.Response.StatusCode = 500;
-                return Json(conf_ResponseMessageObj);
+                if (openid == "")
+                {
+                    conf_ResponseMessageObj = new Conf_ResponseMessage();
+                    conf_ResponseMessageObj.code = "500";
+                    conf_ResponseMessageObj.status = "error";
+                    conf_ResponseMessageObj.message = "User existed.";
+                    HttpContext.Response.StatusCode = 500;
+                    return Json(conf_ResponseMessageObj);
+                }
+                Orm_conf_all_users orm_Conf_All_Users;
+                string query = "select * from conf_all_users where openid=" + openid;
+                globalTestingLog.AddRecord("query", query);
+                orm_Conf_All_Users = (Orm_conf_all_users)dbConnection.Query<Orm_conf_all_users>(query).Single();
+                globalTestingLog.AddRecord("step", "orm_Conf_All_Users created");
+                if (orm_Conf_All_Users == null)
+                {
+                    orm_Conf_All_Users = new Orm_conf_all_users();
+                    orm_Conf_All_Users.guid = Guid.NewGuid().ToString();
+                    orm_Conf_All_Users.openid = openid;
+                    query = "insert into conf_all_users(openid,guid) values(@openid,@guid)";
+                    globalTestingLog.AddRecord("insert query", query);
+                    dbConnection.Execute(query, orm_Conf_All_Users);
+                    conf_ResponseMessageObj = new Conf_ResponseMessage();
+                    conf_ResponseMessageObj.code = "200";
+                    conf_ResponseMessageObj.status = "ok";
+                    conf_ResponseMessageObj.message = "Executed";
+                    HttpContext.Response.StatusCode = 200;
+                    return Json(conf_ResponseMessageObj);
+                }
+                else
+                {
+                    conf_ResponseMessageObj = new Conf_ResponseMessage();
+                    conf_ResponseMessageObj.code = "500";
+                    conf_ResponseMessageObj.status = "error";
+                    conf_ResponseMessageObj.message = "User existed.";
+                    HttpContext.Response.StatusCode = 500;
+                    return Json(conf_ResponseMessageObj);
+                }
             }
-            Orm_conf_all_users orm_Conf_All_Users;
-            string query = "select * from conf_all_users where openid=" + openid;
-            orm_Conf_All_Users = (Orm_conf_all_users)dbConnection.Query<Orm_conf_all_users>(query).Single();            
-            if (orm_Conf_All_Users==null)
+            catch(Exception err)
             {
-                orm_Conf_All_Users = new Orm_conf_all_users();
-                orm_Conf_All_Users.guid = Guid.NewGuid().ToString();
-                orm_Conf_All_Users.openid = openid;
-                query = "insert into conf_all_users(openid,guid) values(@openid,@guid)";
-                dbConnection.Execute(query,orm_Conf_All_Users);
-                conf_ResponseMessageObj = new Conf_ResponseMessage();
-                conf_ResponseMessageObj.code = "200";
-                conf_ResponseMessageObj.status = "ok";
-                conf_ResponseMessageObj.message = "Executed";
-                HttpContext.Response.StatusCode = 200;
-                return Json(conf_ResponseMessageObj);
-            }
-            else
-            {
+                globalTestingLog.AddRecord("stace", err.StackTrace);
+                globalTestingLog.AddRecord("msg", err.Message);
                 conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "500";
                 conf_ResponseMessageObj.status = "error";
