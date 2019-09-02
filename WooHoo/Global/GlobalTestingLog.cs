@@ -13,6 +13,7 @@ namespace WooHoo.Global
         public string LogName;
         public GlobalTestingLog(string LogName)
         {
+            doc = new XmlDocument();
             doc.LoadXml("<root></root>");
             rootNode = doc.SelectSingleNode("/root");
             doc.Save(LogName + ".xml");
