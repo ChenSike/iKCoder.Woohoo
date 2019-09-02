@@ -45,7 +45,6 @@ namespace WooHoo.Global
             Stream ioStream = response.GetResponseStream();
             StreamReader sr = new StreamReader(ioStream, Encoding.UTF8);
             string html = sr.ReadToEnd();
-            sw.WriteLine("HTML:" + html);
             sr.Close();
             ioStream.Close();
             response.Close();
