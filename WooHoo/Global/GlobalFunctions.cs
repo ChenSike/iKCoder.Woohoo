@@ -35,21 +35,39 @@ namespace WooHoo.Global
 
         public static string GetOpenIDFromWX(string code)
         {
-            WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$appid}", AppId);
-            WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$secret}", Secret);
-            WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$code}", code);
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(WX_API_Get_OpenID);
-            request.Method = "GET";
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-            Stream ioStream = response.GetResponseStream();
-            StreamReader sr = new StreamReader(ioStream, Encoding.UTF8);
-            string html = sr.ReadToEnd();
-            sr.Close();
-            ioStream.Close();
-            response.Close();
+            try
+            {
+                WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$appid}", AppId);
+                WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$secret}", Secret);
+                WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$code}", code);
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(WX_API_Get_OpenID);
+                request.Method = "GET";
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                Stream ioStream = response.GetResponseStream();
+                StreamReader sr = new StreamReader(ioStream, Encoding.UTF8);
+                string html = sr.ReadToEnd();
+                sr.Close();
+                ioStream.Close();
+                response.Close();
 
-            JC_WXUserInfo jC_WXUserInfoObj = JsonConvert.DeserializeObject<JC_WXUserInfo>(html);
-            return jC_WXUserInfoObj.openid;
+                JC_WXUserInfo jC_WXUserInfoObj = JsonConvert.DeserializeObject<JC_WXUserInfo>(html);
+                return jC_WXUserInfoObj.openid;
+            }
+            catch(Exception err)
+            {
+                if (!File.Exists("WX_LOGIN_LOG.txt"))
+                    File.Create("WX_LOGIN_LOG.txt");
+                FileStream fs = new FileStream("WX_LOGIN_LOG.txt", FileMode.Append);
+                StreamWriter sw = new StreamWriter(fs);
+                sw.WriteLine("Time:" + DateTime.Now);
+                sw.WriteLine("stack:" + err.StackTrace);
+                sw.WriteLine("Err:"+err.Message);
+                sw.WriteLine("-----------------");
+                sw.Flush();
+                fs.Flush();
+                sw.Close();
+                fs.Close();
+            }
         }
     }
 }
