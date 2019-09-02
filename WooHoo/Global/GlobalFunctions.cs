@@ -6,6 +6,7 @@ using System.Net;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
+using System.Xml;
 
 namespace WooHoo.Global
 {
@@ -36,23 +37,43 @@ namespace WooHoo.Global
 
         public static string GetOpenIDFromWX(string code)
         {
-            WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$appid}", AppId);
-            WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$secret}", Secret);
-            WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$code}", code);
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(WX_API_Get_OpenID);
-            request.Method = "GET";
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-            Stream ioStream = response.GetResponseStream();
-            StreamReader sr = new StreamReader(ioStream, Encoding.UTF8);
-            string html = sr.ReadToEnd();
-            sr.Close();
-            ioStream.Close();
-            response.Close();
-            JC_WXUserInfo jC_WXUserInfoObj = JsonConvert.DeserializeObject<JC_WXUserInfo>(html);
-            if (jC_WXUserInfoObj.openid != "")
-                return jC_WXUserInfoObj.openid;
-            else
-                return html;
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml("<root></root>");
+            XmlNode rootNode = doc.SelectSingleNode("/root");
+            string TestVAL = "";
+            try
+            {
+                
+                WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$appid}", AppId);
+                WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$secret}", Secret);
+                WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$code}", code);
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(WX_API_Get_OpenID);
+                TestVAL = "url:|" + WX_API_Get_OpenID;
+                request.Method = "GET";
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                Stream ioStream = response.GetResponseStream();
+                StreamReader sr = new StreamReader(ioStream, Encoding.UTF8);
+                string html = sr.ReadToEnd();
+                TestVAL = TestVAL + "Return:" + html;
+                sr.Close();
+                ioStream.Close();
+                response.Close();
+                rootNode.InnerText = TestVAL;
+                doc.Save("LOG.xml");
+                JC_WXUserInfo jC_WXUserInfoObj = JsonConvert.DeserializeObject<JC_WXUserInfo>(html);
+                if (jC_WXUserInfoObj.openid != "")
+                    return jC_WXUserInfoObj.openid;
+                else
+                    return html;
+            }
+            catch(Exception err)
+            {
+                TestVAL = TestVAL + "Stace:" + err.StackTrace;
+                TestVAL = TestVAL + "Msg:" + err.Message;
+                rootNode.InnerText = TestVAL;
+                doc.Save("LOG.xml");
+                return "";
+            }
 
         }
     }
