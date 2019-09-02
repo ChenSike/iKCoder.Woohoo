@@ -35,17 +35,23 @@ namespace WooHoo.Global
 
         public static string GetOpenIDFromWX(string code)
         {
+            if (!File.Exists("c:\\WX_LOGIN_LOG.txt"))
+                File.Create("c:\\WX_LOGIN_LOG.txt");
+            FileStream fs = new FileStream("c:\\WX_LOGIN_LOG.txt", FileMode.Append);
+            StreamWriter sw = new StreamWriter(fs);
             try
             {
                 WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$appid}", AppId);
                 WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$secret}", Secret);
                 WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$code}", code);
+                sw.WriteLine("URL:" + WX_API_Get_OpenID);
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(WX_API_Get_OpenID);
                 request.Method = "GET";
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
                 Stream ioStream = response.GetResponseStream();
                 StreamReader sr = new StreamReader(ioStream, Encoding.UTF8);
                 string html = sr.ReadToEnd();
+                sw.WriteLine("HTML:" + html);
                 sr.Close();
                 ioStream.Close();
                 response.Close();
@@ -54,21 +60,20 @@ namespace WooHoo.Global
                 return jC_WXUserInfoObj.openid;
             }
             catch(Exception err)
-            {
-                if (!File.Exists("c:\\WX_LOGIN_LOG.txt"))
-                    File.Create("c:\\WX_LOGIN_LOG.txt");
-                FileStream fs = new FileStream("c:\\WX_LOGIN_LOG.txt", FileMode.Append);
-                StreamWriter sw = new StreamWriter(fs);
+            {                                
                 sw.WriteLine("Time:" + DateTime.Now);
                 sw.WriteLine("stack:" + err.StackTrace);
                 sw.WriteLine("Err:"+err.Message);
                 sw.WriteLine("-----------------");
+            }
+            finally
+            {
                 sw.Flush();
                 fs.Flush();
                 sw.Close();
                 fs.Close();
-                return "";
             }
+            return "";
         }
     }
 }
