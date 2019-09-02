@@ -62,10 +62,7 @@ namespace WooHoo.Global
                 rootNode.InnerText = TestVAL;
                 doc.Save("LOG.xml");
                 JC_WXUserInfo jC_WXUserInfoObj = JsonConvert.DeserializeObject<JC_WXUserInfo>(html);
-                if (jC_WXUserInfoObj.openid != "")
-                    return jC_WXUserInfoObj.openid;
-                else
-                    return html;
+                return jC_WXUserInfoObj.openid;
             }
             catch(Exception err)
             {
