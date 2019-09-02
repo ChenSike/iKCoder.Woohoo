@@ -22,7 +22,7 @@ namespace WooHoo.Controllers
         /// </summary>
         /// <param name="code"></param>
         /// <returns>GUID</returns>
-        [HttpPost]
+        [HttpGet]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string code)
         {
