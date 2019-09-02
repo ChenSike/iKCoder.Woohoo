@@ -17,7 +17,7 @@ namespace WooHoo.Controllers
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(logname + ".xml");
-            return Content(doc.OuterXml);
+            return Content(doc.InnerXml);
         }
     }
 }
