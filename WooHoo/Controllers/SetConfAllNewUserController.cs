@@ -51,7 +51,7 @@ namespace WooHoo.Controllers
                 conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "500";
                 conf_ResponseMessageObj.status = "error";
-                conf_ResponseMessageObj.message = "Faild to create ";
+                conf_ResponseMessageObj.message = "User existed.";
                 HttpContext.Response.StatusCode = 500;
                 return Json(conf_ResponseMessageObj);
             }

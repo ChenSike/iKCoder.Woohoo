@@ -47,6 +47,7 @@ namespace WooHoo.Global
             sr.Close();
             ioStream.Close();
             response.Close();
+
             JC_WXUserInfo jC_WXUserInfoObj = JsonConvert.DeserializeObject<JC_WXUserInfo>(html);
             return jC_WXUserInfoObj.openid;
         }
