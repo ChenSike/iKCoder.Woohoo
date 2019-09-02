@@ -26,6 +26,7 @@ namespace WooHoo.Controllers
         /// <param name="address"></param>
         /// <returns></returns>
         [HttpGet]
+        [HttpPost]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string guid,string name,string country,string state,string city,string district,string address)
         {
