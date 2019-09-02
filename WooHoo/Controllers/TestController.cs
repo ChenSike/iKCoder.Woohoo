@@ -14,7 +14,7 @@ namespace WooHoo.Controllers
         [HttpGet]
         public ActionResult action()
         {
-            string host = HttpContext.Request.Host.Host;
+            string host = "This is the newest test."
             return Content(host);
         }
     }
