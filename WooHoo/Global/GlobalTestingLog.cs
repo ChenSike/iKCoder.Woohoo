@@ -15,8 +15,8 @@ namespace WooHoo.Global
         {
             doc = new XmlDocument();
             doc.LoadXml("<root></root>");
+            doc.Save("test.xml");
             rootNode = doc.SelectSingleNode("/root");
-            doc.Save(fromLogName + ".xml");
             this.LogName = fromLogName;
         }
 
@@ -24,7 +24,7 @@ namespace WooHoo.Global
         {
             string recordValue = rootNode.InnerText + " [ title ] : " + value;
             rootNode.InnerText = recordValue;
-            doc.Save(LogName + ".xml");
+            doc.Save("test.xml");
         }
 
     }
