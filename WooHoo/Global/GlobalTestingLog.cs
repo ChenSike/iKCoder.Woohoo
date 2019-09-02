@@ -11,13 +11,13 @@ namespace WooHoo.Global
         public XmlDocument doc = new XmlDocument();
         public XmlNode rootNode;
         public string LogName;
-        public GlobalTestingLog(string LogName)
+        public GlobalTestingLog(string fromLogName)
         {
             doc = new XmlDocument();
             doc.LoadXml("<root></root>");
             rootNode = doc.SelectSingleNode("/root");
-            doc.Save(LogName + ".xml");
-            this.LogName = LogName;
+            doc.Save(fromLogName + ".xml");
+            this.LogName = fromLogName;
         }
 
         public void AddRecord(string title , string value)
