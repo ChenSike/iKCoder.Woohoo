@@ -15,16 +15,16 @@ namespace WooHoo.Global
         {
             doc = new XmlDocument();
             doc.LoadXml("<root></root>");
-            doc.Save("test.xml");
+            doc.Save(fromLogName + ".xml");
             rootNode = doc.SelectSingleNode("/root");
             this.LogName = fromLogName;
         }
 
         public void AddRecord(string title , string value)
         {
-            string recordValue = rootNode.InnerText + " [ title ] : " + value;
+            string recordValue = rootNode.InnerText + " | title | : " + value;
             rootNode.InnerText = recordValue;
-            doc.Save("test.xml");
+            doc.Save(LogName + ".xml");
         }
 
     }

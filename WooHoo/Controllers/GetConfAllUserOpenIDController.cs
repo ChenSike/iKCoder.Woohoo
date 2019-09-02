@@ -31,8 +31,10 @@ namespace WooHoo.Controllers
         [HttpGet]
         public ActionResult Action(string code)
         {
+            Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("GetOpenOD");
             JC_OpenIDDefined obj = new JC_OpenIDDefined();
             obj.openid = Global.GlobalFunctions.GetOpenIDFromWX(code);
+            globalTestingLog.AddRecord("OPENID", obj.openid);
             return Json(obj);
         }
     }
