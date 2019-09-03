@@ -44,12 +44,14 @@ namespace WooHoo.Global
             string TestVAL = "";
             try
             {
+
                 
                 WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$appid}", AppId);
                 WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$secret}", Secret);
                 WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$code}", code);
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(WX_API_Get_OpenID);
                 TestVAL = "url:|" + WX_API_Get_OpenID;
+                TestVAL = TestVAL + " code:| " + code;                    
                 request.Method = "GET";
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
                 Stream ioStream = response.GetResponseStream();
