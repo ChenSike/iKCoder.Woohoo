@@ -34,7 +34,7 @@ namespace WooHoo.Controllers
             globalTestingLog.AddRecord("openid", openid);
             try
             {
-                if (openid == "" || openid == "Null" || openid == "null" || openid == "NULL")
+                if (openid.Length<=5)
                 {
                     conf_ResponseMessageObj = new Conf_ResponseMessage();
                     conf_ResponseMessageObj.code = "500";

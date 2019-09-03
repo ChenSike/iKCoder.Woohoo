@@ -43,9 +43,7 @@ namespace WooHoo.Global
             doc.Save("LOG.xml");
             string TestVAL = "";
             try
-            {
-
-                
+            {                
                 WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$appid}", AppId);
                 WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$secret}", Secret);
                 WX_API_Get_OpenID = WX_API_Get_OpenID.Replace("{$code}", code);
