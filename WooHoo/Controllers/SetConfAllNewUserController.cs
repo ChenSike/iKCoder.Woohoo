@@ -38,7 +38,7 @@ namespace WooHoo.Controllers
                 {
                     conf_ResponseMessageObj = new Conf_ResponseMessage();
                     conf_ResponseMessageObj.code = "500";
-                    conf_ResponseMessageObj.status = "error";
+                    conf_ResponseMessageObj.status = "Invalidated OpenID";
                     conf_ResponseMessageObj.message = "Open ID is NULL";
                     HttpContext.Response.StatusCode = 500;
                     return Json(conf_ResponseMessageObj);
@@ -67,10 +67,10 @@ namespace WooHoo.Controllers
                 else
                 {
                     conf_ResponseMessageObj = new Conf_ResponseMessage();
-                    conf_ResponseMessageObj.code = "500";
-                    conf_ResponseMessageObj.status = "error";
-                    conf_ResponseMessageObj.message = orm_Conf_All_Users.guid;
-                    HttpContext.Response.StatusCode = 500;
+                    conf_ResponseMessageObj.code = "501";
+                    conf_ResponseMessageObj.status = "user existed";
+                    conf_ResponseMessageObj.message = orm_Conf_All_Users_selected.guid;
+                    HttpContext.Response.StatusCode = 501;
                     return Json(conf_ResponseMessageObj);
                 }
             }
