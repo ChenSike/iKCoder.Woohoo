@@ -30,7 +30,8 @@ namespace WooHoo.Controllers
             Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("NewUser");
             Conf_ResponseMessage conf_ResponseMessageObj;
             globalTestingLog.AddRecord("code", code);
-            string openid = Global.GlobalFunctions.GetOpenIDFromWX(code);
+            Global.GlobalFunctions globalFunctions = new Global.GlobalFunctions();
+            string openid = globalFunctions.GetOpenIDFromWX(code);
             globalTestingLog.AddRecord("openid", openid);
             try
             {

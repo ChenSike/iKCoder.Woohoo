@@ -31,11 +31,11 @@ namespace WooHoo.Global
     public class GlobalFunctions
     {
 
-        public static string AppId = "wx16f305dddbdab429";
-        public static string Secret = "57f559c16f1b641062d3620d300b6abc";
-        public static string WX_API_Get_OpenID = "https://api.weixin.qq.com/sns/jscode2session?appid={$appid}&secret={$secret}&js_code={$code}&grant_type=authorization_code";
+        public string AppId = "wx16f305dddbdab429";
+        public string Secret = "57f559c16f1b641062d3620d300b6abc";
+        public string WX_API_Get_OpenID = "https://api.weixin.qq.com/sns/jscode2session?appid={$appid}&secret={$secret}&js_code={$code}&grant_type=authorization_code";
 
-        public static string GetOpenIDFromWX(string code)
+        public string GetOpenIDFromWX(string code)
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml("<root></root>");
