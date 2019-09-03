@@ -24,25 +24,17 @@ namespace WooHoo.Controllers
         [HttpGet]
         public ActionResult Action(string imgkey)
         {
-            if (!Directory.Exists("images"))
-            {
-                Directory.CreateDirectory("images");
-                return Content("");
-            }
-            else
-            {
-                FileStream fs = new FileStream("\\images\\" + imgkey, FileMode.Open);
-                BinaryReader binaryReader = new BinaryReader(fs);
-                byte[] buffer = binaryReader.ReadBytes((int)fs.Length);
-                string base64 = Convert.ToBase64String(buffer);
-                binaryReader.Close();
-                fs.Close();
-                string[] filenameAttrs = imgkey.Split(".");
-                string entendType = filenameAttrs[filenameAttrs.Length - 1];
-                string result = "data:image/";
-                result = result + entendType + ";base64,";
-                return Content(result + base64);
-            }
+            FileStream fs = new FileStream("c:\\woohoo_images\\" + imgkey, FileMode.Open);
+            BinaryReader binaryReader = new BinaryReader(fs);
+            byte[] buffer = binaryReader.ReadBytes((int)fs.Length);
+            string base64 = Convert.ToBase64String(buffer);
+            binaryReader.Close();
+            fs.Close();
+            string[] filenameAttrs = imgkey.Split(".");
+            string entendType = filenameAttrs[filenameAttrs.Length - 1];
+            string result = "data:image/";
+            result = result + entendType + ";base64,";
+            return Content(result + base64);
         }
     }
 }
