@@ -43,12 +43,13 @@ namespace WooHoo.Controllers
                     HttpContext.Response.StatusCode = 500;
                     return Json(conf_ResponseMessageObj);
                 }
-                Orm_conf_all_users orm_Conf_All_Users;
-                string query = "select * from conf_all_users where openid='" + openid + "'";
+                Orm_conf_all_users orm_Conf_All_Users = new Orm_conf_all_users();
+                string query = "select * from conf_all_users where openid=@openid";
+                orm_Conf_All_Users.openid = openid;
                 globalTestingLog.AddRecord("query", query);
-                orm_Conf_All_Users = (Orm_conf_all_users)dbConnection.Query<Orm_conf_all_users>(query).Single();
+                Orm_conf_all_users orm_Conf_All_Users_selected = (Orm_conf_all_users)dbConnection.Query<Orm_conf_all_users>(query,orm_Conf_All_Users).Single();
                 globalTestingLog.AddRecord("step", "orm_Conf_All_Users created");
-                if (orm_Conf_All_Users == null)
+                if (orm_Conf_All_Users_selected == null)
                 {
                     orm_Conf_All_Users = new Orm_conf_all_users();
                     orm_Conf_All_Users.guid = Guid.NewGuid().ToString();
