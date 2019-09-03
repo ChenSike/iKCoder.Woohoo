@@ -34,12 +34,12 @@ namespace WooHoo.Controllers
             globalTestingLog.AddRecord("openid", openid);
             try
             {
-                if (openid == "")
+                if (openid == "" || openid == "Null" || openid == "null" || openid == "NULL")
                 {
                     conf_ResponseMessageObj = new Conf_ResponseMessage();
                     conf_ResponseMessageObj.code = "500";
                     conf_ResponseMessageObj.status = "error";
-                    conf_ResponseMessageObj.message = "User existed.";
+                    conf_ResponseMessageObj.message = "Open ID is NULL";
                     HttpContext.Response.StatusCode = 500;
                     return Json(conf_ResponseMessageObj);
                 }
