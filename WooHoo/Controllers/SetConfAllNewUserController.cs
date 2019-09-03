@@ -24,7 +24,6 @@ namespace WooHoo.Controllers
         /// <param name="code"></param>
         /// <returns>GUID</returns>
         [HttpGet]
-        [HttpPost]
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string code)
         {
