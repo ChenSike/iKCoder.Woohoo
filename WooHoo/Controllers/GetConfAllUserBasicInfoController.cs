@@ -15,11 +15,11 @@ namespace WooHoo.Controllers
     {
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(string openid)
+        public ActionResult Action(string guid)
         {
             Orm.Orm_conf_all_users orm_Conf_All_Users = new Orm.Orm_conf_all_users();
-            orm_Conf_All_Users.openid = openid;
-            string query = "select * from conf_all_users where openid='"+openid+"'";
+            orm_Conf_All_Users.guid = guid;
+            string query = "select * from conf_all_users where guid='"+guid+"'";
             orm_Conf_All_Users = dbConnection.Query<Orm.Orm_conf_all_users>(query).SingleOrDefault();
             return Json(orm_Conf_All_Users);
         }

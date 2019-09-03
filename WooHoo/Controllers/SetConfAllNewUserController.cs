@@ -44,7 +44,7 @@ namespace WooHoo.Controllers
                     return Json(conf_ResponseMessageObj);
                 }
                 Orm_conf_all_users orm_Conf_All_Users;
-                string query = "select * from conf_all_users where openid=" + openid;
+                string query = "select * from conf_all_users where openid='" + openid + "'";
                 globalTestingLog.AddRecord("query", query);
                 orm_Conf_All_Users = (Orm_conf_all_users)dbConnection.Query<Orm_conf_all_users>(query).Single();
                 globalTestingLog.AddRecord("step", "orm_Conf_All_Users created");
@@ -59,7 +59,7 @@ namespace WooHoo.Controllers
                     conf_ResponseMessageObj = new Conf_ResponseMessage();
                     conf_ResponseMessageObj.code = "200";
                     conf_ResponseMessageObj.status = "ok";
-                    conf_ResponseMessageObj.message = "Executed";
+                    conf_ResponseMessageObj.message = orm_Conf_All_Users.guid;
                     HttpContext.Response.StatusCode = 200;
                     return Json(conf_ResponseMessageObj);
                 }
@@ -68,7 +68,7 @@ namespace WooHoo.Controllers
                     conf_ResponseMessageObj = new Conf_ResponseMessage();
                     conf_ResponseMessageObj.code = "500";
                     conf_ResponseMessageObj.status = "error";
-                    conf_ResponseMessageObj.message = "User existed.";
+                    conf_ResponseMessageObj.message = orm_Conf_All_Users.guid;
                     HttpContext.Response.StatusCode = 500;
                     return Json(conf_ResponseMessageObj);
                 }
