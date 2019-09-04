@@ -28,13 +28,19 @@ namespace WooHoo.Controllers
             try
             {
                 FileStream fs = new FileStream("c:\\woohoo_images\\" + imgkey, FileMode.Open);
+                globalTestingLog.AddRecord("Step", "1");
                 BinaryReader binaryReader = new BinaryReader(fs);
+                globalTestingLog.AddRecord("Step", "2");
                 byte[] buffer = binaryReader.ReadBytes((int)fs.Length);
+                globalTestingLog.AddRecord("Step", "3");
                 string base64 = Convert.ToBase64String(buffer);
+                globalTestingLog.AddRecord("Step", "4");
                 binaryReader.Close();
                 fs.Close();
                 string[] filenameAttrs = imgkey.Split(".");
+                globalTestingLog.AddRecord("Step", "5");
                 string entendType = filenameAttrs[filenameAttrs.Length - 1];
+                globalTestingLog.AddRecord("Step", "6");
                 string result = "data:image/";
                 result = result + entendType + ";base64,";
                 return Content(result + base64);
@@ -43,6 +49,7 @@ namespace WooHoo.Controllers
             {
                 globalTestingLog.AddRecord("Msg", err.Message);
                 globalTestingLog.AddRecord("Stace", err.StackTrace);
+                return Content("");
             }            
         }
     }
