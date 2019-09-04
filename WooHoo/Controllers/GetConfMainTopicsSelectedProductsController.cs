@@ -89,6 +89,7 @@ namespace WooHoo.Controllers
                 {
                     newitem.img = orm_Conf_All_Proitems_Imgs.imgpath;
                 }
+                newitem.type_topics = topicid.ToString();
                 result.Add(newitem);
             }
             return Json(result);
