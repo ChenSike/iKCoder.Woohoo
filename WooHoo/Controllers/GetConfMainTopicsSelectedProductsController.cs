@@ -31,6 +31,12 @@ namespace WooHoo.Controllers
             get;
         }
 
+        public string des
+        {
+            set;
+            get;
+        }
+
         public double price
         {
             set;
@@ -74,6 +80,7 @@ namespace WooHoo.Controllers
                     JC_TopicProducts newitem = new JC_TopicProducts();
                     newitem.proid = orm_Conf_All_Proitems_tmp.id;
                     newitem.title = orm_Conf_All_Proitems_tmp.title;
+                    newitem.des = orm_Conf_All_Proitems_tmp.des;
                     query = "select * from conf_all_proitems_price where proid=" + orm_Conf_All_Proitems_tmp.id;
                     Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).SingleOrDefault();
                     if (orm_Conf_All_Proitems_Price != null)
