@@ -22,7 +22,8 @@ namespace WooHoo.Controllers
         /// </summary>
         /// <param name="script"></param>
         /// <returns></returns>
-        [HttpPost]
+        /// 
+        [HttpGet]
         [Filter_SysAuthor]
         [Filter_ConnectDB]
         public ActionResult Action(string script)
