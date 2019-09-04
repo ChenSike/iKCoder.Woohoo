@@ -101,6 +101,7 @@ namespace WooHoo.Controllers
             {
                 globalTestingLog.AddRecord("stack:", err.StackTrace);
                 globalTestingLog.AddRecord("msg:", err.Message);
+                return Content("");
             }
         }
     }
