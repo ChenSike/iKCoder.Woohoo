@@ -27,7 +27,7 @@ namespace WooHoo.Controllers
             Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("GetImg");
             try
             {
-                FileStream fs = new FileStream("\\images\\" + imgkey, FileMode.Open);
+                FileStream fs = new FileStream("images\\" + imgkey, FileMode.Open);
                 globalTestingLog.AddRecord("Step", "1");
                 BinaryReader binaryReader = new BinaryReader(fs);
                 globalTestingLog.AddRecord("Step", "2");
