@@ -25,5 +25,17 @@ namespace WooHoo.Orm
             get;
         }
 
+        public string materials
+        {
+            set;
+            get;
+        }
+
+        public string area
+        {
+            set;
+            get;
+        }
+
     }
 }
