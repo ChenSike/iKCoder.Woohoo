@@ -87,7 +87,7 @@ namespace WooHoo.Controllers
                         newitem.price = 0;
                     }
                     query = "select * from conf_all_proitems_imgs where proid=" + newitem.proid;
-                    Orm.Orm_conf_all_proitems_imgs orm_Conf_All_Proitems_Imgs = dbConnection.Query<Orm.Orm_conf_all_proitems_imgs>(query).SingleOrDefault();
+                    Orm.Orm_conf_all_proitems_imgs orm_Conf_All_Proitems_Imgs = dbConnection.Query<Orm.Orm_conf_all_proitems_imgs>(query).First();
                     if (orm_Conf_All_Proitems_Imgs != null)
                     {
                         newitem.img = orm_Conf_All_Proitems_Imgs.imgpath;
