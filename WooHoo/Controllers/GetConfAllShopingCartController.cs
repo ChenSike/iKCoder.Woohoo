@@ -81,8 +81,9 @@ namespace WooHoo.Controllers
                 {
                     JC_ShopCartItem tmpItemObj = new JC_ShopCartItem();
                     tmpItemObj.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
+                    tmpItemObj.count = orm_Conf_All_Shopcart_tmp_obj.count;
                     Orm.Orm_conf_all_proitems orm_Conf_All_Proitems = new Orm.Orm_conf_all_proitems();
-                    orm_Conf_All_Proitems.id = orm_Conf_All_Shopcart_tmp_obj.proid;
+                    orm_Conf_All_Proitems.id = tmpItemObj.proid;
                     string tmpQuery = "select * from conf_all_proitems where id = @id";
                     Orm.Orm_conf_all_proitems orm_Conf_All_Proitems_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems>(tmpQuery, orm_Conf_All_Proitems).First();
                     tmpItemObj.title = orm_Conf_All_Proitems_Selected.title;
@@ -94,7 +95,7 @@ namespace WooHoo.Controllers
                     Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = new Orm.Orm_conf_all_proitems_price();
                     orm_Conf_All_Proitems_Price.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
                     tmpQuery = "select * from conf_all_proitems_price where proid=@proid";
-                    Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(tmpQuery, orm_Conf_All_Proitems_Price).SingleOrDefault();
+                    Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(tmpQuery, orm_Conf_All_Proitems_Price).First();
                     tmpItemObj.basicprice = orm_Conf_All_Proitems_Price_Selected.basic;
                     tmpItemObj.discount = orm_Conf_All_Proitems_Price_Selected.discount;
                     tmpItemObj.price = tmpItemObj.discount > 0 ? tmpItemObj.basicprice * (tmpItemObj.discount / 100) : tmpItemObj.basicprice;
