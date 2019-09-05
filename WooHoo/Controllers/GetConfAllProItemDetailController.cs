@@ -81,6 +81,12 @@ namespace WooHoo.Controllers
             get;
         }
 
+        public Dictionary<string,string> infoimgs
+        {
+            set;
+            get;
+        }
+
     }
 
     [Route("api/[controller]")]
@@ -144,6 +150,16 @@ namespace WooHoo.Controllers
                 {
                     newitem.sales = 0;
                     newitem.stock = 0;
+                }
+                newitem.infoimgs = new Dictionary<string, string>();
+                query = "select * from conf_all_proitems_imginfo where proid=" + newitem.proid;
+                List<Orm.Orm_conf_all_proitems_imginfo> orm_Conf_All_Proitems_Imginfos = dbConnection.Query<Orm.Orm_conf_all_proitems_imginfo>(query).ToList();
+                foreach (Orm.Orm_conf_all_proitems_imginfo orm_Conf_All_Proitems_Imginfo_tmp in orm_Conf_All_Proitems_Imginfos)
+                {
+                    if(!newitem.infoimgs.ContainsKey(orm_Conf_All_Proitems_Imginfo_tmp.index.ToString()))
+                    {
+                        newitem.infoimgs.Add(orm_Conf_All_Proitems_Imginfo_tmp.index.ToString(), orm_Conf_All_Proitems_Imginfo_tmp.img);
+                    }
                 }
                 return Json(newitem);
             }
