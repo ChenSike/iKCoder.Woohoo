@@ -82,13 +82,14 @@ namespace WooHoo.Controllers
                     JC_ShopCartItem tmpItemObj = new JC_ShopCartItem();
                     tmpItemObj.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
                     Orm.Orm_conf_all_proitems orm_Conf_All_Proitems = new Orm.Orm_conf_all_proitems();
-                    string tmpQuery = "select * from conf_all_proitems where id = @proid";
-                    Orm.Orm_conf_all_proitems orm_Conf_All_Proitems_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems>(tmpQuery, orm_Conf_All_Proitems).SingleOrDefault();
+                    orm_Conf_All_Proitems.id = orm_Conf_All_Shopcart_tmp_obj.proid;
+                    string tmpQuery = "select * from conf_all_proitems where id = @id";
+                    Orm.Orm_conf_all_proitems orm_Conf_All_Proitems_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems>(tmpQuery, orm_Conf_All_Proitems).First();
                     tmpItemObj.title = orm_Conf_All_Proitems_Selected.title;
                     Orm.Orm_conf_all_proitems_imgs orm_Conf_All_Proitems_Imgs = new Orm.Orm_conf_all_proitems_imgs();
                     orm_Conf_All_Proitems_Imgs.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
                     tmpQuery = "select * from conf_all_proitems_imgs where proid=@proid and titleimg='1'";
-                    Orm.Orm_conf_all_proitems_imgs orm_Conf_All_Proitems_Imgs_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems_imgs>(tmpQuery, orm_Conf_All_Proitems_Imgs).SingleOrDefault();
+                    Orm.Orm_conf_all_proitems_imgs orm_Conf_All_Proitems_Imgs_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems_imgs>(tmpQuery, orm_Conf_All_Proitems_Imgs).First();
                     tmpItemObj.img = orm_Conf_All_Proitems_Imgs_Selected.imgpath;
                     Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = new Orm.Orm_conf_all_proitems_price();
                     orm_Conf_All_Proitems_Price.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
