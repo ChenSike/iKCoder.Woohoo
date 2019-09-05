@@ -69,34 +69,44 @@ namespace WooHoo.Controllers
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string guid)
         {
-            Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart = new Orm.Orm_conf_all_shopcart();
-            orm_Conf_All_Shopcart.guid = guid;
-            string query = "select * from conf_all_shopcart where guid=@guid";
-            List<Orm.Orm_conf_all_shopcart> lst_orm_Conf_All_Shopcarts = dbConnection.Query<Orm.Orm_conf_all_shopcart>(query, orm_Conf_All_Shopcart).ToList();
-            List<JC_ShopCartItem> lst_result = new List<JC_ShopCartItem>();
-            foreach(Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart_tmp_obj in lst_orm_Conf_All_Shopcarts)
+            Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("GetShopingCart");
+            try
             {
-                JC_ShopCartItem tmpItemObj = new JC_ShopCartItem();
-                tmpItemObj.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
-                Orm.Orm_conf_all_proitems orm_Conf_All_Proitems = new Orm.Orm_conf_all_proitems();
-                string tmpQuery = "select * from conf_all_proitems where id = @proid";
-                Orm.Orm_conf_all_proitems orm_Conf_All_Proitems_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems>(tmpQuery, orm_Conf_All_Proitems).SingleOrDefault();
-                tmpItemObj.title = orm_Conf_All_Proitems_Selected.title;
-                Orm.Orm_conf_all_proitems_imgs orm_Conf_All_Proitems_Imgs = new Orm.Orm_conf_all_proitems_imgs();
-                orm_Conf_All_Proitems_Imgs.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
-                tmpQuery = "select * from conf_all_proitems_imgs where proid=@proid and titleimg='1'";
-                Orm.Orm_conf_all_proitems_imgs orm_Conf_All_Proitems_Imgs_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems_imgs>(tmpQuery, orm_Conf_All_Proitems_Imgs).SingleOrDefault();
-                tmpItemObj.img = orm_Conf_All_Proitems_Imgs_Selected.imgpath;
-                Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = new Orm.Orm_conf_all_proitems_price();
-                orm_Conf_All_Proitems_Price.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
-                tmpQuery = "select * from conf_all_proitems_price where proid=@proid";
-                Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(tmpQuery, orm_Conf_All_Proitems_Price).SingleOrDefault();
-                tmpItemObj.basicprice = orm_Conf_All_Proitems_Price_Selected.basic;
-                tmpItemObj.discount = orm_Conf_All_Proitems_Price_Selected.discount;
-                tmpItemObj.price = tmpItemObj.discount > 0 ? tmpItemObj.basicprice * (tmpItemObj.discount / 100) : tmpItemObj.basicprice;
-                lst_result.Add(tmpItemObj);
+                Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart = new Orm.Orm_conf_all_shopcart();
+                orm_Conf_All_Shopcart.guid = guid;
+                string query = "select * from conf_all_shopcart where guid=@guid";
+                List<Orm.Orm_conf_all_shopcart> lst_orm_Conf_All_Shopcarts = dbConnection.Query<Orm.Orm_conf_all_shopcart>(query, orm_Conf_All_Shopcart).ToList();
+                List<JC_ShopCartItem> lst_result = new List<JC_ShopCartItem>();
+                foreach (Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart_tmp_obj in lst_orm_Conf_All_Shopcarts)
+                {
+                    JC_ShopCartItem tmpItemObj = new JC_ShopCartItem();
+                    tmpItemObj.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
+                    Orm.Orm_conf_all_proitems orm_Conf_All_Proitems = new Orm.Orm_conf_all_proitems();
+                    string tmpQuery = "select * from conf_all_proitems where id = @proid";
+                    Orm.Orm_conf_all_proitems orm_Conf_All_Proitems_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems>(tmpQuery, orm_Conf_All_Proitems).SingleOrDefault();
+                    tmpItemObj.title = orm_Conf_All_Proitems_Selected.title;
+                    Orm.Orm_conf_all_proitems_imgs orm_Conf_All_Proitems_Imgs = new Orm.Orm_conf_all_proitems_imgs();
+                    orm_Conf_All_Proitems_Imgs.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
+                    tmpQuery = "select * from conf_all_proitems_imgs where proid=@proid and titleimg='1'";
+                    Orm.Orm_conf_all_proitems_imgs orm_Conf_All_Proitems_Imgs_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems_imgs>(tmpQuery, orm_Conf_All_Proitems_Imgs).SingleOrDefault();
+                    tmpItemObj.img = orm_Conf_All_Proitems_Imgs_Selected.imgpath;
+                    Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = new Orm.Orm_conf_all_proitems_price();
+                    orm_Conf_All_Proitems_Price.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
+                    tmpQuery = "select * from conf_all_proitems_price where proid=@proid";
+                    Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(tmpQuery, orm_Conf_All_Proitems_Price).SingleOrDefault();
+                    tmpItemObj.basicprice = orm_Conf_All_Proitems_Price_Selected.basic;
+                    tmpItemObj.discount = orm_Conf_All_Proitems_Price_Selected.discount;
+                    tmpItemObj.price = tmpItemObj.discount > 0 ? tmpItemObj.basicprice * (tmpItemObj.discount / 100) : tmpItemObj.basicprice;
+                    lst_result.Add(tmpItemObj);
+                }
+                return Json(lst_result);
             }
-            return Json(lst_result);
+            catch(Exception err)
+            {
+                globalTestingLog.AddRecord("Stace:", err.StackTrace);
+                globalTestingLog.AddRecord("Msg:", err.Message);
+                return Content(" ");
+            }
         }
     }
 }
