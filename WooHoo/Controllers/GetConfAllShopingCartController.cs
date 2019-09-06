@@ -98,7 +98,7 @@ namespace WooHoo.Controllers
                     Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(tmpQuery, orm_Conf_All_Proitems_Price).First();
                     tmpItemObj.basicprice = orm_Conf_All_Proitems_Price_Selected.basic;
                     tmpItemObj.discount = orm_Conf_All_Proitems_Price_Selected.discount;
-                    tmpItemObj.price = tmpItemObj.discount > 0 ? tmpItemObj.basicprice * (tmpItemObj.discount / 100) : tmpItemObj.basicprice;
+                    tmpItemObj.price = tmpItemObj.discount > 0 ? tmpItemObj.basicprice * (tmpItemObj.discount / 100.0) : tmpItemObj.basicprice;
                     lst_result.Add(tmpItemObj);
                 }
                 return Json(lst_result);
