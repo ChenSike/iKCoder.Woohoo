@@ -16,7 +16,7 @@ namespace WooHoo.Controllers
     {
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(int id, string guid,int count)
+        public ActionResult Action(int id, string guid)
         {
             Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart = new Orm.Orm_conf_all_shopcart();
             orm_Conf_All_Shopcart.id = id;
