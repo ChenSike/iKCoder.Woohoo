@@ -26,7 +26,7 @@ namespace WooHoo.Controllers
                 orm_Conf_All_Shopcart.id = id;
                 orm_Conf_All_Shopcart.count = count;
                 orm_Conf_All_Shopcart.udt = DateTime.Now.ToString();
-                string query = "update conf_all_shopcart set count=@count,utd=@utd where id=@id and guid=@guid";
+                string query = "update conf_all_shopcart set count=@count,udt=@udt where id=@id and guid=@guid";
                 dbConnection.Execute(query, orm_Conf_All_Shopcart);
                 Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "200";
