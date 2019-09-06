@@ -16,13 +16,12 @@ namespace WooHoo.Controllers
     {
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(int id, int count)
+        public ActionResult Action(int id, string guid,int count)
         {
             Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart = new Orm.Orm_conf_all_shopcart();
             orm_Conf_All_Shopcart.id = id;
-            orm_Conf_All_Shopcart.count = count;
-            orm_Conf_All_Shopcart.udt = DateTime.Now.ToString();
-            string query = "delete from conf_all_shopcart where id=@id";
+            orm_Conf_All_Shopcart.guid = guid;
+            string query = "delete from conf_all_shopcart where id=@id and guid=@guid";
             dbConnection.Execute(query, orm_Conf_All_Shopcart);
             Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
             conf_ResponseMessageObj.code = "200";
