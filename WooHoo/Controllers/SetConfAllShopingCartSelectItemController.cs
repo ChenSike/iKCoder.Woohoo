@@ -16,17 +16,22 @@ namespace WooHoo.Controllers
     {
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(int id,string guid)
+        public ActionResult Action(int proid,string guid)
         {
             Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("ShopingCartUpdate");
             try
             {
+                string query = "select * from conf_all_shopcart where proid=" + proid + " and guid='" + guid + "' and selected='1'";
+                Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart_selected = dbConnection.Query<Orm.Orm_conf_all_shopcart>(query).First();
                 Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart = new Orm.Orm_conf_all_shopcart();
                 orm_Conf_All_Shopcart.guid = guid;
-                orm_Conf_All_Shopcart.id = id;
-                orm_Conf_All_Shopcart.selected = "1";
+                orm_Conf_All_Shopcart. = id;
+                if (orm_Conf_All_Shopcart_selected!=null)
+                    orm_Conf_All_Shopcart.selected = "0";
+                else
+                    orm_Conf_All_Shopcart.selected = "1";
                 orm_Conf_All_Shopcart.udt = DateTime.Now.ToString();
-                string query = "update conf_all_shopcart set selected=@selected where id=@id and guid=@guid";
+                query = "update conf_all_shopcart set selected=@selected where proid=@proid and guid=@guid";
                 dbConnection.Execute(query, orm_Conf_All_Shopcart);
                 Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "200";
