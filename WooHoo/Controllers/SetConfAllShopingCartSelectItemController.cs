@@ -25,7 +25,7 @@ namespace WooHoo.Controllers
                 Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart_selected = dbConnection.Query<Orm.Orm_conf_all_shopcart>(query).First();
                 Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart = new Orm.Orm_conf_all_shopcart();
                 orm_Conf_All_Shopcart.guid = guid;
-                orm_Conf_All_Shopcart. = id;
+                orm_Conf_All_Shopcart.proid = proid;
                 if (orm_Conf_All_Shopcart_selected!=null)
                     orm_Conf_All_Shopcart.selected = "0";
                 else
