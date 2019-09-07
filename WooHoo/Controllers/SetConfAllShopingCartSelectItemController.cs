@@ -22,7 +22,7 @@ namespace WooHoo.Controllers
             try
             {
                 string query = "select * from conf_all_shopcart where proid=" + proid + " and guid='" + guid + "' and selected='1'";
-                Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart_selected = dbConnection.Query<Orm.Orm_conf_all_shopcart>(query).First();
+                Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart_selected = dbConnection.Query<Orm.Orm_conf_all_shopcart>(query).FirstOrDefault();
                 Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart = new Orm.Orm_conf_all_shopcart();
                 orm_Conf_All_Shopcart.guid = guid;
                 orm_Conf_All_Shopcart.proid = proid;

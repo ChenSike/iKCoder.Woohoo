@@ -24,7 +24,7 @@ namespace WooHoo.Controllers
         public ActionResult Action(int proid,string guid)
         {
             string query = "select * from conf_all_shopcart where proid=" + proid + " and guid='" + guid + "'";
-            Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart_Selected = dbConnection.Query<Orm.Orm_conf_all_shopcart>(query).First();
+            Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart_Selected = dbConnection.Query<Orm.Orm_conf_all_shopcart>(query).FirstOrDefault();
             if (orm_Conf_All_Shopcart_Selected != null)
             {
                 Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart = new Orm.Orm_conf_all_shopcart();
