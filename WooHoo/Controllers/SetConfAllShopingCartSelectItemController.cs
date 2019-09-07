@@ -12,11 +12,11 @@ namespace WooHoo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SetConfAllShopingCartUpdateCountController : WHControllerBase
+    public class SetConfAllShopingCartSelectItemController : WHControllerBase
     {
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(int id,string guid,int count)
+        public ActionResult Action(int id,string guid)
         {
             Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("ShopingCartUpdate");
             try
@@ -24,9 +24,9 @@ namespace WooHoo.Controllers
                 Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart = new Orm.Orm_conf_all_shopcart();
                 orm_Conf_All_Shopcart.guid = guid;
                 orm_Conf_All_Shopcart.id = id;
-                orm_Conf_All_Shopcart.count = count;
+                orm_Conf_All_Shopcart.selected = "1";
                 orm_Conf_All_Shopcart.udt = DateTime.Now.ToString();
-                string query = "update conf_all_shopcart set count=@count,udt=@utd where id=@id and guid=@guid";
+                string query = "update conf_all_shopcart set selected=@selected where id=@id and guid=@guid";
                 dbConnection.Execute(query, orm_Conf_All_Shopcart);
                 Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "200";
@@ -35,10 +35,10 @@ namespace WooHoo.Controllers
                 HttpContext.Response.StatusCode = 200;
                 return Json(conf_ResponseMessageObj);
             }
-            catch(Exception err)
+            catch (Exception err)
             {
-                globalTestingLog.AddRecord("stace" , err.StackTrace);
-                globalTestingLog.AddRecord("msg" , err.Message);
+                globalTestingLog.AddRecord("stace", err.StackTrace);
+                globalTestingLog.AddRecord("msg", err.Message);
                 return Content("");
             }
         }

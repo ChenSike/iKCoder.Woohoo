@@ -42,5 +42,12 @@ namespace WooHoo.Orm
             set;
             get;
         }
+
+        public string selected
+        {
+            set;
+            get;
+        }
+
     }
 }
