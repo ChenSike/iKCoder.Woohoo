@@ -54,6 +54,12 @@ namespace WooHoo.Controllers
             get;
         }
 
+        public string selected
+        {
+            set;
+            get;
+        }
+
     }
 
     [Route("api/[controller]")]
@@ -82,6 +88,7 @@ namespace WooHoo.Controllers
                     JC_ShopCartItem tmpItemObj = new JC_ShopCartItem();
                     tmpItemObj.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
                     tmpItemObj.count = orm_Conf_All_Shopcart_tmp_obj.count;
+                    tmpItemObj.selected = orm_Conf_All_Shopcart_tmp_obj.selected;
                     Orm.Orm_conf_all_proitems orm_Conf_All_Proitems = new Orm.Orm_conf_all_proitems();
                     orm_Conf_All_Proitems.id = tmpItemObj.proid;
                     string tmpQuery = "select * from conf_all_proitems where id = @id";
