@@ -27,7 +27,7 @@ namespace WooHoo.Controllers
         /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(string guid,string name,string country,string state,string city,string district,string address)
+        public ActionResult Action(string guid,string name,string country,string state,string city,string district,string address,string phone)
         {
             Orm.Orm_conf_all_address orm_Conf_All_Address = new Orm.Orm_conf_all_address();
             orm_Conf_All_Address.guid = guid;
@@ -36,7 +36,14 @@ namespace WooHoo.Controllers
             orm_Conf_All_Address.state = state;
             orm_Conf_All_Address.district = district;
             orm_Conf_All_Address.address = address;
-            string query = "insert into conf_all_address(guid,name,country,state,city,address) values(@guid,@name,@country,@state,@city,@address)";
+            orm_Conf_All_Address.phone = phone;
+            orm_Conf_All_Address.def = "1";
+            string query = "select * from conf_all_address where guid=@guid and def=@def";
+            List<Orm.Orm_conf_all_address> orm_Conf_All_Addresses_Lst = new List<Orm.Orm_conf_all_address>();
+            orm_Conf_All_Addresses_Lst = dbConnection.Query<Orm.Orm_conf_all_address>(query, orm_Conf_All_Address).ToList();
+            if (orm_Conf_All_Addresses_Lst.Count > 0)
+                orm_Conf_All_Address.def = "0";
+            query = "insert into conf_all_address(guid,name,country,state,city,address,phone) values(@guid,@name,@country,@state,@city,@address,@phone)";
             dbConnection.Execute(query, orm_Conf_All_Address);
             Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
             conf_ResponseMessageObj.code = "200";

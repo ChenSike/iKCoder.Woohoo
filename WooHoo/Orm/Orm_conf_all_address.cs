@@ -61,5 +61,12 @@ namespace WooHoo.Orm
             get;
         }
 
+        public string def
+        {
+            set;
+            get;
+        }
+            
+
     }
 }
