@@ -14,20 +14,15 @@ namespace WooHoo.Controllers
     [ApiController]
     public class SetConfAllRemoveAddressController : WHControllerBase
     {
-        /// <summary>
-        /// 移除一个收货地址
-        /// </summary>
-        /// <param name="guid"></param>
-        /// <returns></returns>
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(string guid)
+        public ActionResult Action(int id)
         {
             try
             {
                 Orm.Orm_conf_all_address orm_Conf_All_Address = new Orm.Orm_conf_all_address();
-                orm_Conf_All_Address.guid = guid;
-                string query = "delete conf_all_address where guid=@guid";
+                orm_Conf_All_Address.id = id;
+                string query = "delete from conf_all_address where id=@id";
                 dbConnection.Execute(query, orm_Conf_All_Address);
                 Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "200";
