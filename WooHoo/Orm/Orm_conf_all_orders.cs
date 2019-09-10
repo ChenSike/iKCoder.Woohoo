@@ -20,12 +20,6 @@ namespace WooHoo.Orm
             get;
         }
 
-        public string sponsorid
-        {
-            set;
-            get;
-        }
-
         public string payed
         {
             set;
@@ -51,6 +45,18 @@ namespace WooHoo.Orm
         }
 
         public string guid
+        {
+            set;
+            get;
+        }
+
+        public double totalprice
+        {
+            set;
+            get;
+        }
+
+        public string shipped
         {
             set;
             get;
