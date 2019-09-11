@@ -84,6 +84,8 @@ namespace WooHoo.Controllers
     [ApiController]
     public class GetConfAllOrdersController : WHControllerBase
     {
+        [HttpGet]
+        [Filter.Filter_ConnectDB]
         public ActionResult Action(string guid)
         {
             string query = "select * from conf_all_orders where guid='" + guid + "'";
