@@ -118,6 +118,7 @@ namespace WooHoo.Controllers
                     newItem.items.Add(newProItem);
                 }
                 jC_OrderOutputs.Add(newItem);
+
             }
             return Json(jC_OrderOutputs);
         }
