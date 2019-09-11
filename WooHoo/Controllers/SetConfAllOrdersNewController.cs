@@ -80,7 +80,7 @@ namespace WooHoo.Controllers
             }
             else
             {
-                JC_ConfAllOrders jC_ConfAllOrders = JsonConvert.DeserializeObject(data) as JC_ConfAllOrders;
+                JC_ConfAllOrders jC_ConfAllOrders = (JC_ConfAllOrders)JsonConvert.DeserializeObject(data,typeof(JC_ConfAllOrders));
                 string query = "";
                 double totalprice = 0.0;                
                 foreach (JC_ConfAllOrders_Item shopingcartitem in jC_ConfAllOrders.items)
