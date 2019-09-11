@@ -88,39 +88,55 @@ namespace WooHoo.Controllers
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string guid)
         {
-            string query = "select * from conf_all_orders where guid='" + guid + "'";
-            List<JC_OrderOutput> jC_OrderOutputs = new List<JC_OrderOutput>();
-            List<Orm.Orm_conf_all_orders> orm_Conf_All_Orders = dbConnection.Query<Orm.Orm_conf_all_orders>(query).ToList();
-            foreach(Orm.Orm_conf_all_orders orm_Conf_All_Orders_tmp in orm_Conf_All_Orders)
+            Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("SetConfAllOrdersNew");
+            try
             {
-                JC_OrderOutput newItem = new JC_OrderOutput();
-                newItem.orderid = orm_Conf_All_Orders_tmp.orderid;
-                newItem.disorderid = orm_Conf_All_Orders_tmp.cdt + "_" + orm_Conf_All_Orders_tmp.id;
-                newItem.totalprice = orm_Conf_All_Orders_tmp.totalprice;
-                newItem.shiped = orm_Conf_All_Orders_tmp.shipped;
-                newItem.payed = orm_Conf_All_Orders_tmp.payed;
-                newItem.items = new List<JC_OrderOutput_ProItem>();
-                query = "select * from conf_all_orders_proitems where orderid=" + newItem.orderid;
-                List<Orm.Orm_conf_all_orders_proitems> orm_Conf_All_Orders_Proitem_lst = dbConnection.Query<Orm.Orm_conf_all_orders_proitems>(query).ToList();
-                foreach(Orm.Orm_conf_all_orders_proitems orm_Conf_All_Orders_Proitems_Tmp in orm_Conf_All_Orders_Proitem_lst)
+                string query = "select * from conf_all_orders where guid='" + guid + "'";
+                List<JC_OrderOutput> jC_OrderOutputs = new List<JC_OrderOutput>();
+                List<Orm.Orm_conf_all_orders> orm_Conf_All_Orders = dbConnection.Query<Orm.Orm_conf_all_orders>(query).ToList();
+                foreach (Orm.Orm_conf_all_orders orm_Conf_All_Orders_tmp in orm_Conf_All_Orders)
                 {
-                    JC_OrderOutput_ProItem newProItem = new JC_OrderOutput_ProItem();
-                    newProItem.proid = orm_Conf_All_Orders_Proitems_Tmp.proid;
-                    query = "select * from conf_all_proitems where id=" + orm_Conf_All_Orders_Proitems_Tmp.proid;
-                    Orm.Orm_conf_all_proitems orm_Conf_All_Proitems = dbConnection.Query<Orm.Orm_conf_all_proitems>(query).FirstOrDefault();
-                    newProItem.title = orm_Conf_All_Proitems.title;
-                    query = "select * from conf_all_proitems_imgs where id=" + orm_Conf_All_Orders_Proitems_Tmp.proid + " and titleimg='1'";
-                    Orm.Orm_conf_all_proitems_imgs orm_conf_all_proitems_imgs = dbConnection.Query<Orm.Orm_conf_all_proitems_imgs>(query).FirstOrDefault();
-                    newProItem.img = orm_conf_all_proitems_imgs.imgpath;
-                    query = "seelct * from conf_all_proitems_price where proid=" + orm_Conf_All_Orders_Proitems_Tmp.proid;
-                    Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).FirstOrDefault();
-                    newProItem.price= orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * (orm_Conf_All_Proitems_Price.discount / 100.0) : orm_Conf_All_Proitems_Price.basic;
-                    newItem.items.Add(newProItem);
-                }
-                jC_OrderOutputs.Add(newItem);
+                    JC_OrderOutput newItem = new JC_OrderOutput();
+                    newItem.orderid = orm_Conf_All_Orders_tmp.orderid;
+                    newItem.disorderid = orm_Conf_All_Orders_tmp.cdt + "_" + orm_Conf_All_Orders_tmp.id;
+                    newItem.totalprice = orm_Conf_All_Orders_tmp.totalprice;
+                    newItem.shiped = orm_Conf_All_Orders_tmp.shipped;
+                    newItem.payed = orm_Conf_All_Orders_tmp.payed;
+                    newItem.items = new List<JC_OrderOutput_ProItem>();
+                    query = "select * from conf_all_orders_proitems where orderid=" + newItem.orderid;
+                    List<Orm.Orm_conf_all_orders_proitems> orm_Conf_All_Orders_Proitem_lst = dbConnection.Query<Orm.Orm_conf_all_orders_proitems>(query).ToList();
+                    foreach (Orm.Orm_conf_all_orders_proitems orm_Conf_All_Orders_Proitems_Tmp in orm_Conf_All_Orders_Proitem_lst)
+                    {
+                        JC_OrderOutput_ProItem newProItem = new JC_OrderOutput_ProItem();
+                        newProItem.proid = orm_Conf_All_Orders_Proitems_Tmp.proid;
+                        query = "select * from conf_all_proitems where id=" + orm_Conf_All_Orders_Proitems_Tmp.proid;
+                        Orm.Orm_conf_all_proitems orm_Conf_All_Proitems = dbConnection.Query<Orm.Orm_conf_all_proitems>(query).FirstOrDefault();
+                        newProItem.title = orm_Conf_All_Proitems.title;
+                        query = "select * from conf_all_proitems_imgs where id=" + orm_Conf_All_Orders_Proitems_Tmp.proid + " and titleimg='1'";
+                        Orm.Orm_conf_all_proitems_imgs orm_conf_all_proitems_imgs = dbConnection.Query<Orm.Orm_conf_all_proitems_imgs>(query).FirstOrDefault();
+                        newProItem.img = orm_conf_all_proitems_imgs.imgpath;
+                        query = "seelct * from conf_all_proitems_price where proid=" + orm_Conf_All_Orders_Proitems_Tmp.proid;
+                        Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).FirstOrDefault();
+                        newProItem.price = orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * (orm_Conf_All_Proitems_Price.discount / 100.0) : orm_Conf_All_Proitems_Price.basic;
+                        newItem.items.Add(newProItem);
+                    }
+                    jC_OrderOutputs.Add(newItem);
 
+                }
+                return Json(jC_OrderOutputs);
             }
-            return Json(jC_OrderOutputs);
+            catch (Exception err)
+            {
+                globalTestingLog.AddRecord("stace", err.StackTrace);
+                globalTestingLog.AddRecord("msg", err.Message);
+                Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
+                conf_ResponseMessageObj.code = "500";
+                conf_ResponseMessageObj.status = "error";
+                conf_ResponseMessageObj.message = "User existed.";
+                HttpContext.Response.StatusCode = 500;
+                return Json(conf_ResponseMessageObj);
+            }
+
         }
     }
 }
