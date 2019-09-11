@@ -86,6 +86,7 @@ namespace WooHoo.Controllers
                     JC_ConfAllOrders jC_ConfAllOrders = (JC_ConfAllOrders)JsonConvert.DeserializeObject(data, typeof(JC_ConfAllOrders));
                     string query = "";
                     double totalprice = 0.0;
+                    string orderid = Guid.NewGuid().ToString();
                     foreach (JC_ConfAllOrders_Item shopingcartitem in jC_ConfAllOrders.items)
                     {
                         totalprice = totalprice + shopingcartitem.price;
@@ -94,12 +95,14 @@ namespace WooHoo.Controllers
                             query = "delete from conf_all_shopcart where id=" + shopingcartitem.shopcartid;
                             dbConnection.Execute(query);
                         }
-                    }
-                    string orderid = Guid.NewGuid().ToString();
+                        query = "insert into conf_all_orders_proitems(proid,orderid) values(" + shopingcartitem.proid + ",'" + orderid + "')";
+                        dbConnection.Execute(query);
+                    }  
                     string cdt = DateTime.Now.ToString();
                     string returned = "0";
                     query = "insert into conf_all_orders(orderid,payed,cdt,returned,addressid,guid,totalprice,shipped) values('" + orderid + "','0','" + cdt + "','0','" + jC_ConfAllOrders.addressid + "','" + jC_ConfAllOrders.guid + "'," + totalprice + ",'0')";
                     dbConnection.Execute(query);
+
                     Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                     conf_ResponseMessageObj.code = "200";
                     conf_ResponseMessageObj.status = "OK";
