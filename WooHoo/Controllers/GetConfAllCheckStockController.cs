@@ -62,7 +62,7 @@ namespace WooHoo.Controllers
             }
             else
             {
-                JC_CheckStock_Input jC_CheckStock_Input = JsonConvert.DeserializeObject(data) as JC_CheckStock_Input;
+                JC_CheckStock_Input jC_CheckStock_Input = (JC_CheckStock_Input)JsonConvert.DeserializeObject(data, typeof(JC_CheckStock_Input));
                 foreach(JC_CheckStock_Output jC_CheckStock_Output in jC_CheckStock_Input.Lst)
                 {
                     string query = "select * from conf_all_proitems_store where proid=" + jC_CheckStock_Output.id;

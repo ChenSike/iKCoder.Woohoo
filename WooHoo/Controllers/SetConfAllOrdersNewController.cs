@@ -98,7 +98,7 @@ namespace WooHoo.Controllers
                     string orderid = Guid.NewGuid().ToString();
                     string cdt = DateTime.Now.ToString();
                     string returned = "0";
-                    query = "insert into conf_all_orders(orderid,payed,cdt,returned,addressid,guid,totalprice) values('" + orderid + "','0','" + cdt + "','0','" + jC_ConfAllOrders.addressid + "','" + jC_ConfAllOrders.guid + "'," + totalprice + ")";
+                    query = "insert into conf_all_orders(orderid,payed,cdt,returned,addressid,guid,totalprice,shipped) values('" + orderid + "','0','" + cdt + "','0','" + jC_ConfAllOrders.addressid + "','" + jC_ConfAllOrders.guid + "'," + totalprice + ",'0')";
                     dbConnection.Execute(query);
                     Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                     conf_ResponseMessageObj.code = "200";
