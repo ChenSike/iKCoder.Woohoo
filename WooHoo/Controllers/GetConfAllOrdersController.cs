@@ -86,7 +86,7 @@ namespace WooHoo.Controllers
     {
         public ActionResult Action(string guid)
         {
-            string query = "select * from conf_all_orders where guid=" + guid;
+            string query = "select * from conf_all_orders where guid='" + guid + "'";
             List<JC_OrderOutput> jC_OrderOutputs = new List<JC_OrderOutput>();
             List<Orm.Orm_conf_all_orders> orm_Conf_All_Orders = dbConnection.Query<Orm.Orm_conf_all_orders>(query).ToList();
             foreach(Orm.Orm_conf_all_orders orm_Conf_All_Orders_tmp in orm_Conf_All_Orders)
