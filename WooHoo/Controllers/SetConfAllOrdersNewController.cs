@@ -69,39 +69,54 @@ namespace WooHoo.Controllers
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string data)
         {
-            if (string.IsNullOrEmpty(data))
+            Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("SetConfAllOrdersNew");
+            try
             {
+                if (string.IsNullOrEmpty(data))
+                {
+                    Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
+                    conf_ResponseMessageObj.code = "500";
+                    conf_ResponseMessageObj.status = "error";
+                    conf_ResponseMessageObj.message = "faild to execute";
+                    HttpContext.Response.StatusCode = 500;
+                    return Json(conf_ResponseMessageObj);
+                }
+                else
+                {
+                    JC_ConfAllOrders jC_ConfAllOrders = (JC_ConfAllOrders)JsonConvert.DeserializeObject(data, typeof(JC_ConfAllOrders));
+                    string query = "";
+                    double totalprice = 0.0;
+                    foreach (JC_ConfAllOrders_Item shopingcartitem in jC_ConfAllOrders.items)
+                    {
+                        totalprice = totalprice + shopingcartitem.price;
+                        if (shopingcartitem.shopcartid > 0)
+                        {
+                            query = "delete from conf_all_shopcart where id=" + shopingcartitem.shopcartid;
+                            dbConnection.Execute(query);
+                        }
+                    }
+                    string orderid = Guid.NewGuid().ToString();
+                    string cdt = DateTime.Now.ToString();
+                    string returned = "0";
+                    query = "insert into conf_all_orders(orderid,payed,cdt,returned,addressid,guid,totalprice) values('" + orderid + "','0','" + cdt + "','0','" + jC_ConfAllOrders.addressid + "','" + jC_ConfAllOrders.guid + "'," + totalprice + ")";
+                    dbConnection.Execute(query);
+                    Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
+                    conf_ResponseMessageObj.code = "200";
+                    conf_ResponseMessageObj.status = "OK";
+                    conf_ResponseMessageObj.message = "Executed";
+                    HttpContext.Response.StatusCode = 200;
+                    return Json(conf_ResponseMessageObj);
+                }
+            }
+            catch(Exception err)
+            {
+                globalTestingLog.AddRecord("stace", err.StackTrace);
+                globalTestingLog.AddRecord("msg", err.Message);
                 Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "500";
                 conf_ResponseMessageObj.status = "error";
-                conf_ResponseMessageObj.message = "faild to execute";
+                conf_ResponseMessageObj.message = "User existed.";
                 HttpContext.Response.StatusCode = 500;
-                return Json(conf_ResponseMessageObj);
-            }
-            else
-            {
-                JC_ConfAllOrders jC_ConfAllOrders = (JC_ConfAllOrders)JsonConvert.DeserializeObject(data,typeof(JC_ConfAllOrders));
-                string query = "";
-                double totalprice = 0.0;                
-                foreach (JC_ConfAllOrders_Item shopingcartitem in jC_ConfAllOrders.items)
-                {
-                    totalprice = totalprice + shopingcartitem.price;
-                    if(shopingcartitem.shopcartid>0)
-                    {
-                        query = "delete * from conf_all_shopcart where id=" + shopingcartitem.shopcartid;
-                        dbConnection.Execute(query);
-                    }
-                }                
-                string orderid = Guid.NewGuid().ToString();
-                string cdt = DateTime.Now.ToString();
-                string returned = "0";
-                query = "insert into conf_all_orders(orderid,payed,cdt,returned,addressid,guid,totalprice) values('" + orderid + "','0','" + cdt + "','0','" + jC_ConfAllOrders.addressid + "','" + jC_ConfAllOrders.guid + "'," + totalprice + ")";
-                dbConnection.Execute(query);    
-                Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
-                conf_ResponseMessageObj.code = "200";
-                conf_ResponseMessageObj.status = "OK";
-                conf_ResponseMessageObj.message = "Executed";
-                HttpContext.Response.StatusCode = 200;
                 return Json(conf_ResponseMessageObj);
             }
         }        
