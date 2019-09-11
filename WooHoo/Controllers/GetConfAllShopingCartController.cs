@@ -12,6 +12,12 @@ namespace WooHoo.Controllers
 
     public class JC_ShopCartItem
     {
+        public int shopingcartid
+        {
+            set;
+            get;
+        }
+
         public int proid
         {
             set;
@@ -86,6 +92,7 @@ namespace WooHoo.Controllers
                 foreach (Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart_tmp_obj in lst_orm_Conf_All_Shopcarts)
                 {
                     JC_ShopCartItem tmpItemObj = new JC_ShopCartItem();
+                    tmpItemObj.shopingcartid = orm_Conf_All_Shopcart_tmp_obj.id;
                     tmpItemObj.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
                     tmpItemObj.count = orm_Conf_All_Shopcart_tmp_obj.count;
                     tmpItemObj.selected = orm_Conf_All_Shopcart_tmp_obj.selected;

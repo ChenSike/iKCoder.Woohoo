@@ -62,5 +62,11 @@ namespace WooHoo.Orm
             get;
         }
 
+        public string iguid
+        {
+            set;
+            get;
+        }
+
     }
 }
