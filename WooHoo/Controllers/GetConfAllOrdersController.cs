@@ -103,7 +103,7 @@ namespace WooHoo.Controllers
                     newItem.shiped = orm_Conf_All_Orders_tmp.shipped;
                     newItem.payed = orm_Conf_All_Orders_tmp.payed;
                     newItem.items = new List<JC_OrderOutput_ProItem>();
-                    query = "select * from conf_all_orders_proitems where orderid=" + newItem.orderid;
+                    query = "select * from conf_all_orders_proitems where orderid='" + newItem.orderid + "'";
                     List<Orm.Orm_conf_all_orders_proitems> orm_Conf_All_Orders_Proitem_lst = dbConnection.Query<Orm.Orm_conf_all_orders_proitems>(query).ToList();
                     foreach (Orm.Orm_conf_all_orders_proitems orm_Conf_All_Orders_Proitems_Tmp in orm_Conf_All_Orders_Proitem_lst)
                     {
@@ -132,7 +132,7 @@ namespace WooHoo.Controllers
                 Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "500";
                 conf_ResponseMessageObj.status = "error";
-                conf_ResponseMessageObj.message = "User existed.";
+                conf_ResponseMessageObj.message = "Faild to execute";
                 HttpContext.Response.StatusCode = 500;
                 return Json(conf_ResponseMessageObj);
             }
