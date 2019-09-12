@@ -76,6 +76,12 @@ namespace WooHoo.Controllers
             get;
         }
 
+        public int count
+        {
+            set;
+            get;
+        }
+
     }
 
 
@@ -118,6 +124,7 @@ namespace WooHoo.Controllers
                         query = "select * from conf_all_proitems_price where proid=" + orm_Conf_All_Orders_Proitems_Tmp.proid;
                         Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).FirstOrDefault();
                         newProItem.price = orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * (orm_Conf_All_Proitems_Price.discount / 100.0) : orm_Conf_All_Proitems_Price.basic;
+                        newProItem.count = orm_Conf_All_Orders_Proitems_Tmp.count;
                         newItem.items.Add(newProItem);
                     }
                     jC_OrderOutputs.Add(newItem);

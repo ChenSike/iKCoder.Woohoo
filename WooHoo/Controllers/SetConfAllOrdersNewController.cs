@@ -97,10 +97,10 @@ namespace WooHoo.Controllers
                         }
                         query = "insert into conf_all_orders_proitems(proid,orderid,count) values(" + shopingcartitem.proid + ",'" + orderid + "'," + shopingcartitem.count + ")";
                         dbConnection.Execute(query);
-                    }  
-                    string cdt = DateTime.Now.ToString();
+                    }
+                    string cdt = DateTime.Now.ToLongDateString();
                     string returned = "0";
-                    query = "insert into conf_all_orders(orderid,payed,cdt,returned,addressid,guid,totalprice,shiped) values('" + orderid + "','0','" + cdt + "','0','" + jC_ConfAllOrders.addressid + "','" + jC_ConfAllOrders.guid + "'," + totalprice + ",'0')";
+                    query = "insert into conf_all_orders(orderid,payed,cdt,returned,addressid,guid,totalprice,shiped,status) values('" + orderid + "','0','" + cdt + "','0','" + jC_ConfAllOrders.addressid + "','" + jC_ConfAllOrders.guid + "'," + totalprice + ",'0','1')";
                     dbConnection.Execute(query);
 
                     Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
