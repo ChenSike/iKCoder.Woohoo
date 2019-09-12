@@ -95,7 +95,7 @@ namespace WooHoo.Controllers
                             query = "delete from conf_all_shopcart where id=" + shopingcartitem.shopcartid;
                             dbConnection.Execute(query);
                         }
-                        query = "insert into conf_all_orders_proitems(proid,orderid) values(" + shopingcartitem.proid + ",'" + orderid + "')";
+                        query = "insert into conf_all_orders_proitems(proid,orderid,count) values(" + shopingcartitem.proid + ",'" + orderid + "'," + shopingcartitem.count + ")";
                         dbConnection.Execute(query);
                     }  
                     string cdt = DateTime.Now.ToString();

@@ -26,5 +26,11 @@ namespace WooHoo.Orm
             get;
         }
 
+        public int count
+        {
+            set;
+            get;
+        }
+
     }
 }
