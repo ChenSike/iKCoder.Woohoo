@@ -52,7 +52,7 @@ namespace WooHoo.Controllers
             Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
             conf_ResponseMessageObj.code = "200";
             conf_ResponseMessageObj.status = "ok";
-            conf_ResponseMessageObj.message = id;
+            conf_ResponseMessageObj.message = id.ToString();
             HttpContext.Response.StatusCode = 200;
             return Json(conf_ResponseMessageObj);
         }
