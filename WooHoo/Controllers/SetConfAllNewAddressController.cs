@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Dapper;
 using WooHoo.Base;
 using WooHoo.Configs;
+using MySql.Data;
+using System.Data;
 
 namespace WooHoo.Controllers
 {
@@ -44,12 +46,13 @@ namespace WooHoo.Controllers
             orm_Conf_All_Addresses_Lst = dbConnection.Query<Orm.Orm_conf_all_address>(query, orm_Conf_All_Address).ToList();
             if (orm_Conf_All_Addresses_Lst.Count > 0)
                 orm_Conf_All_Address.def = "0";
-            query = "insert into conf_all_address(guid,name,country,state,city,district,address,phone) values(@guid,@name,@country,@state,@city,@district,@address,@phone)";
-            dbConnection.Execute(query, orm_Conf_All_Address);
+            /*query = "insert into conf_all_address(guid,name,country,state,city,district,address,phone) values(@guid,@name,@country,@state,@city,@district,@address,@phone)";
+            dbConnection.Execute(query, orm_Conf_All_Address);*/
+            var id = dbConnection.Query<int>(query).FirstOrDefault();
             Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
             conf_ResponseMessageObj.code = "200";
             conf_ResponseMessageObj.status = "ok";
-            conf_ResponseMessageObj.message = "Executed";
+            conf_ResponseMessageObj.message = id;
             HttpContext.Response.StatusCode = 200;
             return Json(conf_ResponseMessageObj);
         }

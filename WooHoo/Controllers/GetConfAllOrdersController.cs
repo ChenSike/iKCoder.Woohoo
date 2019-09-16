@@ -94,7 +94,7 @@ namespace WooHoo.Controllers
         [Filter.Filter_ConnectDB]
         public ActionResult Action(string guid)
         {
-            Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("SetConfAllOrdersNew");
+            Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("GetConfAllOrders");
             try
             {
                 string query = "select * from conf_all_orders where guid='" + guid + "'";
