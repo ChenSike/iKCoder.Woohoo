@@ -103,6 +103,24 @@ namespace WooHoo.Controllers
                     query = "insert into conf_all_orders(orderid,payed,cdt,returned,addressid,guid,totalprice,shiped,status) values('" + orderid + "','0','" + cdt + "','0','" + jC_ConfAllOrders.addressid + "','" + jC_ConfAllOrders.guid + "'," + totalprice + ",'0','1')";
                     dbConnection.Execute(query);
 
+                    Orm.Orm_conf_all_address orm_Conf_All_Address = new Orm.Orm_conf_all_address();
+                    query = "select * from conf_all_address where id=" + jC_ConfAllOrders.addressid;
+                    orm_Conf_All_Address = dbConnection.Query<Orm.Orm_conf_all_address>(query).FirstOrDefault();
+                    if (orm_Conf_All_Address != null)
+                    {
+                        Orm.Orm_conf_all_orders_address orm_conf_all_orders_address = new Orm.Orm_conf_all_orders_address();
+                        orm_conf_all_orders_address.guid = orm_Conf_All_Address.guid;
+                        orm_conf_all_orders_address.name = orm_Conf_All_Address.name;
+                        orm_conf_all_orders_address.country = orm_Conf_All_Address.country;
+                        orm_conf_all_orders_address.city = orm_Conf_All_Address.city;
+                        orm_conf_all_orders_address.state = orm_Conf_All_Address.state;
+                        orm_conf_all_orders_address.district = orm_Conf_All_Address.district;
+                        orm_conf_all_orders_address.address = orm_Conf_All_Address.address;
+                        orm_conf_all_orders_address.phone = orm_Conf_All_Address.phone;
+                        orm_conf_all_orders_address.orderid = orderid;
+                        query = "insert into conf_all_orders_address(orderid,guid,name,country,state,city,district,address,phone) values(@orderid,@guid,@name,@country,@state,@city,@district,@address,@phone)";
+                        dbConnection.Execute(query, orm_Conf_All_Address);
+                    }
                     Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                     conf_ResponseMessageObj.code = "200";
                     conf_ResponseMessageObj.status = "OK";
