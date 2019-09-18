@@ -106,7 +106,7 @@ namespace WooHoo.Controllers
                     Orm.Orm_conf_all_address orm_Conf_All_Address = new Orm.Orm_conf_all_address();
                     query = "select * from conf_all_address where id=" + jC_ConfAllOrders.addressid;
                     orm_Conf_All_Address = dbConnection.Query<Orm.Orm_conf_all_address>(query).FirstOrDefault();
-                    if (orm_Conf_All_Address != null)
+                    if (orm_Conf_All_Address == null)
                     {
                         Orm.Orm_conf_all_orders_address orm_conf_all_orders_address = new Orm.Orm_conf_all_orders_address();
                         orm_conf_all_orders_address.guid = orm_Conf_All_Address.guid;
