@@ -58,7 +58,7 @@ namespace WooHoo.Controllers
                     Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).FirstOrDefault();
                     newProItem.price = orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * (orm_Conf_All_Proitems_Price.discount / 100.0) : orm_Conf_All_Proitems_Price.basic;
                     newProItem.count = orm_Conf_All_Orders_Proitems_Tmp.count;
-                   
+
                     newItem.items.Add(newProItem);
                 }
                 return Json(newItem);
