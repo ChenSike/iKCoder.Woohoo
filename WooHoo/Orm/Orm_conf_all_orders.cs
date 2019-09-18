@@ -68,5 +68,11 @@ namespace WooHoo.Orm
             get;
         }
 
+        public string status
+        {
+            set;
+            get;
+        }
+
     }
 }

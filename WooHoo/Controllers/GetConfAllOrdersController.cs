@@ -13,6 +13,12 @@ namespace WooHoo.Controllers
 
     public class JC_OrderOutput
     {
+        public string cdt
+        {
+            set;
+            get;
+        }
+
         public string disorderid
         {
             set;
@@ -48,6 +54,31 @@ namespace WooHoo.Controllers
             set;
             get;
         }
+
+        public string status
+        {
+            set;
+            get;
+        }
+
+        public string address
+        {
+            set;
+            get;
+        }
+
+        public string name
+        {
+            set;
+            get;
+        }
+
+        public string phone
+        {
+            set;
+            get;
+        }
+
     }
 
     public class JC_OrderOutput_ProItem
