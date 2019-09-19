@@ -106,7 +106,7 @@ namespace WooHoo.Controllers
                     Orm.Orm_conf_all_address orm_Conf_All_Address = new Orm.Orm_conf_all_address();
                     query = "select * from conf_all_address where id=" + jC_ConfAllOrders.addressid;
                     orm_Conf_All_Address = dbConnection.Query<Orm.Orm_conf_all_address>(query).FirstOrDefault();
-                    if (orm_Conf_All_Address == null)
+                    if (orm_Conf_All_Address != null)
                     {
                         Orm.Orm_conf_all_orders_address orm_conf_all_orders_address = new Orm.Orm_conf_all_orders_address();
                         orm_conf_all_orders_address.guid = orm_Conf_All_Address.guid;
@@ -119,7 +119,7 @@ namespace WooHoo.Controllers
                         orm_conf_all_orders_address.phone = orm_Conf_All_Address.phone;
                         orm_conf_all_orders_address.orderid = orderid;
                         query = "insert into conf_all_orders_address(orderid,guid,name,country,state,city,district,address,phone) values(@orderid,@guid,@name,@country,@state,@city,@district,@address,@phone)";
-                        dbConnection.Execute(query, orm_Conf_All_Address);
+                        dbConnection.Execute(query, orm_conf_all_orders_address);
                     }
                     Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                     conf_ResponseMessageObj.code = "200";
