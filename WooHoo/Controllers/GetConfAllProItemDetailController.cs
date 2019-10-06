@@ -12,6 +12,39 @@ using WooHoo.Configs;
 namespace WooHoo.Controllers
 {
 
+    public class JC_ProductItemDetail_Store
+    {
+        public int sales
+        {
+            set;
+            get;
+        }
+
+        public int stock
+        {
+            set;
+            get;
+        }
+
+        public string outofstock
+        {
+            set;
+            get;
+        }
+
+        public string modell1
+        {
+            set;
+            get;
+        }
+
+        public string modell2
+        {
+            set;
+            get;
+        }
+    }
+
     public class JC_ProductItemDetail
     {
 
@@ -68,20 +101,15 @@ namespace WooHoo.Controllers
             set;
             get;
         }
-
-        public int sales
-        {
-            set;
-            get;
-        }
-
-        public int stock
-        {
-            set;
-            get;
-        }
+                     
 
         public Dictionary<string,string> infoimgs
+        {
+            set;
+            get;
+        }
+
+        public List<JC_ProductItemDetail_Store> jC_ProductItemDetail_Store
         {
             set;
             get;
@@ -140,17 +168,25 @@ namespace WooHoo.Controllers
                     }
                 }
                 query = "select * from conf_all_proitems_store where proid=" + newitem.proid;
-                Orm.Orm_conf_all_proitems_store orm_Conf_All_Proitems_Store = dbConnection.Query<Orm.Orm_conf_all_proitems_store>(query).First();
-                if (orm_Conf_All_Proitems_Store != null)
+                //Orm.Orm_conf_all_proitems_store orm_Conf_All_Proitems_Store = dbConnection.Query<Orm.Orm_conf_all_proitems_store>(query).First();
+                List<Orm.Orm_conf_all_proitems_store> lstOrmConfallproitemsstore = dbConnection.Query<Orm.Orm_conf_all_proitems_store>(query).ToList();
+                if(lstOrmConfallproitemsstore!=null)
                 {
-                    newitem.sales = orm_Conf_All_Proitems_Store.sale;
-                    newitem.stock = orm_Conf_All_Proitems_Store.stock;
-                }
-                else
-                {
-                    newitem.sales = 0;
-                    newitem.stock = 0;
-                }
+                    newitem.jC_ProductItemDetail_Store = new List<JC_ProductItemDetail_Store>();
+                    foreach(Orm.Orm_conf_all_proitems_store orm_Conf_All_Proitems_Store in lstOrmConfallproitemsstore)
+                    {
+                        JC_ProductItemDetail_Store jC_ProductItemDetail_Store_Item = new JC_ProductItemDetail_Store();
+                        jC_ProductItemDetail_Store_Item.stock = orm_Conf_All_Proitems_Store.stock;
+                        if (orm_Conf_All_Proitems_Store.stock > 0)
+                            jC_ProductItemDetail_Store_Item.outofstock = "0";
+                        else
+                            jC_ProductItemDetail_Store_Item.outofstock = "1";
+                        jC_ProductItemDetail_Store_Item.modell1 = orm_Conf_All_Proitems_Store.modell1;
+                        jC_ProductItemDetail_Store_Item.modell2 = orm_Conf_All_Proitems_Store.modell2;
+                        jC_ProductItemDetail_Store_Item.sales = orm_Conf_All_Proitems_Store.sale;
+                        newitem.jC_ProductItemDetail_Store.Add(jC_ProductItemDetail_Store_Item);
+                    }
+                }                               
                 newitem.infoimgs = new Dictionary<string, string>();
                 query = "select * from conf_all_proitems_imginfo where proid=" + newitem.proid;
                 List<Orm.Orm_conf_all_proitems_imginfo> orm_Conf_All_Proitems_Imginfos = dbConnection.Query<Orm.Orm_conf_all_proitems_imginfo>(query).ToList();

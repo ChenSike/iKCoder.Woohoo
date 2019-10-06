@@ -30,6 +30,18 @@ namespace WooHoo.Controllers
             get;
         }
 
+        public string modell1
+        {
+            set;
+            get;
+        }
+
+        public string modell2
+        {
+            set;
+            get;
+        }
+
         public int count
         {
             set;
@@ -65,7 +77,7 @@ namespace WooHoo.Controllers
                 JC_CheckStock_Input jC_CheckStock_Input = (JC_CheckStock_Input)JsonConvert.DeserializeObject(data, typeof(JC_CheckStock_Input));
                 foreach(JC_CheckStock_Output jC_CheckStock_Output in jC_CheckStock_Input.Lst)
                 {
-                    string query = "select * from conf_all_proitems_store where proid=" + jC_CheckStock_Output.id;
+                    string query = "select * from conf_all_proitems_store where proid=" + jC_CheckStock_Output.id + " and modell1='" + jC_CheckStock_Output.modell1 + "' and modell2='" + jC_CheckStock_Output.modell2 + "'";
                     Orm.Orm_conf_all_proitems_store orm_Conf_All_Proitems_Store = dbConnection.Query<Orm.Orm_conf_all_proitems_store>(query).FirstOrDefault();
                     if(orm_Conf_All_Proitems_Store.stock>=jC_CheckStock_Output.count)
                     {

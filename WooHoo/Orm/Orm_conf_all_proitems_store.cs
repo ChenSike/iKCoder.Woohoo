@@ -48,5 +48,18 @@ namespace WooHoo.Orm
             set;
             get;
         }
+
+        public string modell1
+        {
+            set;
+            get;
+        }
+
+        public string modell2
+        {
+            set;
+            get;
+        }
+
     }
 }

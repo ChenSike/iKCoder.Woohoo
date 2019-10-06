@@ -67,6 +67,18 @@ namespace WooHoo.Controllers
             get;
         }
 
+        public string modell1
+        {
+            set;
+            get;
+        }
+
+        public string modell2
+        {
+            set;
+            get;
+        }
+
     }
 
     [Route("api/[controller]")]
@@ -97,6 +109,8 @@ namespace WooHoo.Controllers
                     tmpItemObj.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
                     tmpItemObj.count = orm_Conf_All_Shopcart_tmp_obj.count;
                     tmpItemObj.selected = orm_Conf_All_Shopcart_tmp_obj.selected;
+                    tmpItemObj.modell1 = orm_Conf_All_Shopcart_tmp_obj.modell1;
+                    tmpItemObj.modell2 = orm_Conf_All_Shopcart_tmp_obj.modell2;
                     Orm.Orm_conf_all_proitems orm_Conf_All_Proitems = new Orm.Orm_conf_all_proitems();
                     orm_Conf_All_Proitems.id = tmpItemObj.proid;
                     string tmpQuery = "select * from conf_all_proitems where id = @id";

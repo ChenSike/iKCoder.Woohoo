@@ -16,7 +16,7 @@ namespace WooHoo.Controllers
     {
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(int proid,string guid,int count)
+        public ActionResult Action(int proid,string guid,int count,string modell1,string modell2)
         {
             Global.GlobalTestingLog globalTestingLog = new Global.GlobalTestingLog("ShopingCartUpdate");
             try
@@ -25,8 +25,10 @@ namespace WooHoo.Controllers
                 orm_Conf_All_Shopcart.guid = guid;
                 orm_Conf_All_Shopcart.proid = proid;
                 orm_Conf_All_Shopcart.count = count;
+                orm_Conf_All_Shopcart.modell1 = modell1;
+                orm_Conf_All_Shopcart.modell2 = modell2;
                 orm_Conf_All_Shopcart.udt = DateTime.Now.ToString();
-                string query = "update conf_all_shopcart set count=@count,udt=@udt where proid=@proid and guid=@guid";
+                string query = "update conf_all_shopcart set count=@count,udt=@udt where proid=@proid and guid=@guid and modell1=@modell1 and modell2=@modell2";
                 dbConnection.Execute(query, orm_Conf_All_Shopcart);
                 Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "200";
