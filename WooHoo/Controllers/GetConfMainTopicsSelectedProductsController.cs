@@ -82,11 +82,11 @@ namespace WooHoo.Controllers
                     newitem.title = orm_Conf_All_Proitems_tmp.title;
                     newitem.des = orm_Conf_All_Proitems_tmp.des;
                     query = "select * from conf_all_proitems_price where proid=" + orm_Conf_All_Proitems_tmp.id;
-                    Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).First();
-                    if (orm_Conf_All_Proitems_Price != null)
+                    List<Orm.Orm_conf_all_proitems_price> orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).ToList();
+                    if (orm_Conf_All_Proitems_Price != null && orm_Conf_All_Proitems_Price.Count>0)
                     {
-                        newitem.basicprice = orm_Conf_All_Proitems_Price.basic;
-                        newitem.price = orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * (orm_Conf_All_Proitems_Price.discount / 100.0) : orm_Conf_All_Proitems_Price.basic;
+                        newitem.basicprice = orm_Conf_All_Proitems_Price[0].basic;
+                        newitem.price = orm_Conf_All_Proitems_Price[0].discount > 0 ? orm_Conf_All_Proitems_Price[0].basic * (orm_Conf_All_Proitems_Price[0].discount / 100.0) : orm_Conf_All_Proitems_Price[0].basic;
                     }
                     else
                     {
