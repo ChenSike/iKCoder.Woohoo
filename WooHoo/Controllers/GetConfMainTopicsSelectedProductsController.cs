@@ -77,9 +77,11 @@ namespace WooHoo.Controllers
                 List<Orm.Orm_conf_all_proitems> lst_Orm_conf_all_proitems = dbConnection.Query<Orm.Orm_conf_all_proitems>(query).ToList();
                 foreach (Orm.Orm_conf_all_proitems orm_Conf_All_Proitems_tmp in lst_Orm_conf_all_proitems)
                 {
+                    //Code
                     JC_TopicProducts newitem = new JC_TopicProducts();
                     newitem.proid = orm_Conf_All_Proitems_tmp.id;
                     newitem.title = orm_Conf_All_Proitems_tmp.title;
+                    
                     newitem.des = orm_Conf_All_Proitems_tmp.des;
                     query = "select * from conf_all_proitems_price where proid=" + orm_Conf_All_Proitems_tmp.id;
                     List<Orm.Orm_conf_all_proitems_price> orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).ToList();
