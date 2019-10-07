@@ -105,7 +105,7 @@ namespace WooHoo.Controllers
                     newitem.type_topics = topicid.ToString();
                     result.Add(newitem);
                 }
-                return Json(result);
+                return Json("{ok}");
             }
             catch(Exception err)
             {
