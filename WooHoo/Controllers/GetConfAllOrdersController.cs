@@ -170,7 +170,7 @@ namespace WooHoo.Controllers
                         {
                             newProItem.img = orm_conf_all_proitems_imgs.imgpath;
                         }
-                        query = "select * from conf_all_proitems_price where proid=" + orm_Conf_All_Orders_Proitems_Tmp.proid;
+                        query = "select * from conf_all_proitems_price where proid=" + orm_Conf_All_Orders_Proitems_Tmp.proid + " and modell1='" + orm_Conf_All_Orders_Proitems_Tmp.modell1 + "' and modell2='" + orm_Conf_All_Orders_Proitems_Tmp.modell2 + "'";
                         Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).FirstOrDefault();
                         if (orm_Conf_All_Proitems_Price != null)
                         {

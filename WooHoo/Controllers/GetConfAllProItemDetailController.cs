@@ -43,6 +43,18 @@ namespace WooHoo.Controllers
             set;
             get;
         }
+
+        public double price
+        {
+            set;
+            get;
+        }
+
+        public double basicprice
+        {
+            set;
+            get;
+        }
     }
 
     public class JC_ProductItemDetail
@@ -64,19 +76,7 @@ namespace WooHoo.Controllers
         {
             set;
             get;
-        }
-
-        public double price
-        {
-            set;
-            get;
-        }
-
-        public double basicprice
-        {
-            set;
-            get;
-        }
+        }        
 
         public string type_topics
         {
@@ -123,7 +123,7 @@ namespace WooHoo.Controllers
     {
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(int id)
+        public ActionResult Action(int id,string modell1,string modell2)
         {
             JC_ProductItemDetail newitem = new JC_ProductItemDetail();
             string query = "select * from conf_all_proitems where id=" + id.ToString();
@@ -143,19 +143,7 @@ namespace WooHoo.Controllers
                 newitem.title = Orm_conf_all_proitem.title;
                 newitem.des = Orm_conf_all_proitem.des;
                 newitem.materials = Orm_conf_all_proitem.materials;
-                newitem.area = Orm_conf_all_proitem.area;
-                query = "select * from conf_all_proitems_price where proid=" + Orm_conf_all_proitem.id;
-                Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).First();
-                if (orm_Conf_All_Proitems_Price != null)
-                {
-                    newitem.basicprice = orm_Conf_All_Proitems_Price.basic;
-                    newitem.price = orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * (orm_Conf_All_Proitems_Price.discount / 100.0) : orm_Conf_All_Proitems_Price.basic;
-                }
-                else
-                {
-                    newitem.basicprice = 0;
-                    newitem.price = 0;
-                }
+                newitem.area = Orm_conf_all_proitem.area;              
                 newitem.imglist = new List<string>();
                 query = "select * from conf_all_proitems_imgs where proid=" + newitem.proid;
                 List<Orm.Orm_conf_all_proitems_imgs> orm_Conf_All_Proitems_Imgs = dbConnection.Query<Orm.Orm_conf_all_proitems_imgs>(query).ToList();
@@ -184,6 +172,18 @@ namespace WooHoo.Controllers
                         jC_ProductItemDetail_Store_Item.modell1 = orm_Conf_All_Proitems_Store.modell1;
                         jC_ProductItemDetail_Store_Item.modell2 = orm_Conf_All_Proitems_Store.modell2;
                         jC_ProductItemDetail_Store_Item.sales = orm_Conf_All_Proitems_Store.sale;
+                        query = "select * from conf_all_proitems_price where proid=" + Orm_conf_all_proitem.id + " and modell1='" + modell1 + "' and modell2='" + modell2 + "'";
+                        Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).First();
+                        if (orm_Conf_All_Proitems_Price != null)
+                        {
+                            jC_ProductItemDetail_Store_Item.basicprice = orm_Conf_All_Proitems_Price.basic;
+                            jC_ProductItemDetail_Store_Item.price = orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * (orm_Conf_All_Proitems_Price.discount / 100.0) : orm_Conf_All_Proitems_Price.basic;
+                        }
+                        else
+                        {
+                            jC_ProductItemDetail_Store_Item.basicprice = 0;
+                            jC_ProductItemDetail_Store_Item.price = 0;
+                        }
                         newitem.jC_ProductItemDetail_Store.Add(jC_ProductItemDetail_Store_Item);
                     }
                 }                               

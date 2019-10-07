@@ -23,11 +23,11 @@ namespace WooHoo.Controllers
         /// <returns></returns>
         [HttpGet]
         [Filter_ConnectDB]
-        public ActionResult Action(int proid)
+        public ActionResult Action(int proid,string modell1,string modell2)
         {
             Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = new Orm.Orm_conf_all_proitems_price();
             orm_Conf_All_Proitems_Price.proid = proid;
-            string query = "select * from conf_all_proitems_price where proid=@proid";
+            string query = "select * from conf_all_proitems_price where proid=@proid and modell1='" + modell1 + "' and modell2='" + modell2 + "'";
             orm_Conf_All_Proitems_Price = dbConnection.Query<Orm_conf_all_proitems_price>(query).SingleOrDefault();
             if (orm_Conf_All_Proitems_Price != null)
                 return Json(orm_Conf_All_Proitems_Price);

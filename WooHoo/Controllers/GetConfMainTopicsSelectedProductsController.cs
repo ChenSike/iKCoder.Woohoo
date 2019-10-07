@@ -82,7 +82,7 @@ namespace WooHoo.Controllers
                     newitem.title = orm_Conf_All_Proitems_tmp.title;
                     newitem.des = orm_Conf_All_Proitems_tmp.des;
                     query = "select * from conf_all_proitems_price where proid=" + orm_Conf_All_Proitems_tmp.id;
-                    Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).SingleOrDefault();
+                    Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).First();
                     if (orm_Conf_All_Proitems_Price != null)
                     {
                         newitem.basicprice = orm_Conf_All_Proitems_Price.basic;
