@@ -76,6 +76,7 @@ namespace WooHoo.Controllers
                 List<JC_TopicProducts> result = new List<JC_TopicProducts>();
                 string query = "select * from conf_all_proitems where id in ( select proid from conf_main_topics_products where topicsid = " + topicid + ") ";
                 List<Orm.Orm_conf_all_proitems> lst_Orm_conf_all_proitems = dbConnection.Query<Orm.Orm_conf_all_proitems>(query).ToList();
+                globalTestingLog.AddRecord("Step","1");
                 foreach (Orm.Orm_conf_all_proitems orm_Conf_All_Proitems_tmp in lst_Orm_conf_all_proitems)
                 {
                     //Code
@@ -102,6 +103,8 @@ namespace WooHoo.Controllers
                         newitem.img = orm_Conf_All_Proitems_Imgs.imgpath;
                     }
                     newitem.type_topics = topicid.ToString();
+                    globalTestingLog.AddRecord("Step", "2");
+                    globalTestingLog.AddRecord("proid", newitem.proid.ToString());
                     result.Add(newitem);
                 }
                 return Json(result);
