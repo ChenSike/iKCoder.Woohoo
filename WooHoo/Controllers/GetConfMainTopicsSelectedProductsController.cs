@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Dapper;
 using WooHoo.Base;
+using WooHoo.Configs;
 
 namespace WooHoo.Controllers
 {
@@ -110,7 +111,12 @@ namespace WooHoo.Controllers
             {
                 globalTestingLog.AddRecord("stack:", err.StackTrace);
                 globalTestingLog.AddRecord("msg:", err.Message);
-                return Content("");
+                Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
+                conf_ResponseMessageObj.code = "500";
+                conf_ResponseMessageObj.status = "Error";
+                conf_ResponseMessageObj.message = err.Message;
+                HttpContext.Response.StatusCode = 500;
+                return Json(conf_ResponseMessageObj);
             }
         }
     }
