@@ -123,7 +123,7 @@ namespace WooHoo.Controllers
     {
         [HttpGet]
         [Filter.Filter_ConnectDB]
-        public ActionResult Action(int id,string modell1,string modell2)
+        public ActionResult Action(int id)
         {
             JC_ProductItemDetail newitem = new JC_ProductItemDetail();
             string query = "select * from conf_all_proitems where id=" + id.ToString();
@@ -172,12 +172,12 @@ namespace WooHoo.Controllers
                         jC_ProductItemDetail_Store_Item.modell1 = orm_Conf_All_Proitems_Store.modell1;
                         jC_ProductItemDetail_Store_Item.modell2 = orm_Conf_All_Proitems_Store.modell2;
                         jC_ProductItemDetail_Store_Item.sales = orm_Conf_All_Proitems_Store.sale;
-                        query = "select * from conf_all_proitems_price where proid=" + Orm_conf_all_proitem.id + " and modell1='" + modell1 + "' and modell2='" + modell2 + "'";
-                        Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).First();
+                        query = "select * from conf_all_proitems_price where proid=" + Orm_conf_all_proitem.id + " and modell1='" + jC_ProductItemDetail_Store_Item.modell1 + "' and modell2='" + jC_ProductItemDetail_Store_Item.modell2 + "'";
+                        List<Orm.Orm_conf_all_proitems_price> orm_Conf_All_Proitems_Price = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(query).ToList();
                         if (orm_Conf_All_Proitems_Price != null)
                         {
-                            jC_ProductItemDetail_Store_Item.basicprice = orm_Conf_All_Proitems_Price.basic;
-                            jC_ProductItemDetail_Store_Item.price = orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * (orm_Conf_All_Proitems_Price.discount / 100.0) : orm_Conf_All_Proitems_Price.basic;
+                            jC_ProductItemDetail_Store_Item.basicprice = orm_Conf_All_Proitems_Price[0].basic;
+                            jC_ProductItemDetail_Store_Item.price = orm_Conf_All_Proitems_Price[0].discount > 0 ? orm_Conf_All_Proitems_Price[0].basic * (orm_Conf_All_Proitems_Price[0].discount / 100.0) : orm_Conf_All_Proitems_Price[0].basic;
                         }
                         else
                         {
