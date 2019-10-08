@@ -123,10 +123,10 @@ namespace WooHoo.Controllers
                     tmpItemObj.img = orm_Conf_All_Proitems_Imgs_Selected.imgpath;
                     Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price = new Orm.Orm_conf_all_proitems_price();
                     orm_Conf_All_Proitems_Price.proid = orm_Conf_All_Shopcart_tmp_obj.proid;
-                    tmpQuery = "select * from conf_all_proitems_price where proid=@proid and model1='" + orm_Conf_All_Shopcart_tmp_obj.modell1 + "' and modell2='" + orm_Conf_All_Shopcart_tmp_obj.modell2 + "'";
-                    Orm.Orm_conf_all_proitems_price orm_Conf_All_Proitems_Price_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(tmpQuery, orm_Conf_All_Proitems_Price).First();
-                    tmpItemObj.basicprice = orm_Conf_All_Proitems_Price_Selected.basic;
-                    tmpItemObj.discount = orm_Conf_All_Proitems_Price_Selected.discount;
+                    tmpQuery = "select * from conf_all_proitems_price where proid=@proid and modell1='" + orm_Conf_All_Shopcart_tmp_obj.modell1 + "' and modell2='" + orm_Conf_All_Shopcart_tmp_obj.modell2 + "'";
+                    List<Orm.Orm_conf_all_proitems_price> orm_Conf_All_Proitems_Price_Selected = dbConnection.Query<Orm.Orm_conf_all_proitems_price>(tmpQuery, orm_Conf_All_Proitems_Price).ToList();
+                    tmpItemObj.basicprice = orm_Conf_All_Proitems_Price_Selected[0].basic;
+                    tmpItemObj.discount = orm_Conf_All_Proitems_Price_Selected[0].discount;
                     tmpItemObj.price = tmpItemObj.discount > 0 ? tmpItemObj.basicprice * (tmpItemObj.discount / 100.0) : tmpItemObj.basicprice;
                     lst_result.Add(tmpItemObj);
                 }
