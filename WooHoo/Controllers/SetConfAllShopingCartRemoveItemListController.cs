@@ -12,6 +12,28 @@ using WooHoo.Configs;
 namespace WooHoo.Controllers
 {
 
+    public class JC_ShopingCartItemIDList_Item
+    {
+        public int id
+        {
+            set;
+            get;
+        }
+
+        public string modell1
+        {
+            set;
+            get;
+        }
+
+        public string modell2
+        {
+            set;
+            get;
+        }
+
+    }
+
     public class JC_ShopingCartItemIDList
     {
         public string guid
@@ -20,11 +42,14 @@ namespace WooHoo.Controllers
             get;
         }
 
-        public List<int> idlist
+        public List<JC_ShopingCartItemIDList_Item> idlist
         {
             set;
             get;
         }
+
+        
+
     }
 
     [Route("api/[controller]")]
@@ -36,12 +61,14 @@ namespace WooHoo.Controllers
         public ActionResult Action(string postdata)
         {
             JC_ShopingCartItemIDList jC_ShopingCartItemIDList  = (JC_ShopingCartItemIDList)JsonConvert.DeserializeObject(postdata);
-            foreach (int activeid in jC_ShopingCartItemIDList.idlist)
+            foreach (JC_ShopingCartItemIDList_Item activeid in jC_ShopingCartItemIDList.idlist)
             {
                 Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart = new Orm.Orm_conf_all_shopcart();
-                orm_Conf_All_Shopcart.id = activeid;
+                orm_Conf_All_Shopcart.id = activeid.id;
                 orm_Conf_All_Shopcart.guid = jC_ShopingCartItemIDList.guid;
-                string query = "delete from conf_all_shopcart where id=@id and guid=@guid";
+                orm_Conf_All_Shopcart.modell1 = activeid.modell1;
+                orm_Conf_All_Shopcart.modell2 = activeid.modell2;
+                string query = "delete from conf_all_shopcart where id=@id and guid=@guid and modell1=@modell1 and modell2=@modell2";
                 dbConnection.Execute(query, orm_Conf_All_Shopcart);               
             }
             Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();

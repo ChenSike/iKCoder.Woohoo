@@ -113,7 +113,7 @@ namespace WooHoo.Controllers
                     }
                     string cdt = DateTime.Now.ToString("yyyyMMdd");
                     string returned = "0";
-                    query = "insert into conf_all_orders(orderid,payed,cdt,returned,addressid,guid,totalprice,shiped,status,modell1,modell2) values('" + orderid + "','0','" + cdt + "','0','" + jC_ConfAllOrders.addressid + "','" + jC_ConfAllOrders.guid + "'," + totalprice + ",'0','1')";
+                    query = "insert into conf_all_orders(orderid,payed,cdt,returned,addressid,guid,totalprice,shiped,status) values('" + orderid + "','0','" + cdt + "','0','" + jC_ConfAllOrders.addressid + "','" + jC_ConfAllOrders.guid + "'," + totalprice + ",'0','1')";
                     dbConnection.Execute(query);
                     Orm.Orm_conf_all_address orm_Conf_All_Address = new Orm.Orm_conf_all_address();
                     query = "select * from conf_all_address where id=" + jC_ConfAllOrders.addressid;
