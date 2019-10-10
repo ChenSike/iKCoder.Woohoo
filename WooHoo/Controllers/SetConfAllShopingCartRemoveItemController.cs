@@ -21,6 +21,8 @@ namespace WooHoo.Controllers
             Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart = new Orm.Orm_conf_all_shopcart();
             orm_Conf_All_Shopcart.id = id;
             orm_Conf_All_Shopcart.guid = guid;
+            orm_Conf_All_Shopcart.modell1 = modell1;
+            orm_Conf_All_Shopcart.modell2 = modell2;
             string query = "delete from conf_all_shopcart where id=@id and guid=@guid and modell1=@modell1 and modell2=@modell2";
             dbConnection.Execute(query, orm_Conf_All_Shopcart);
             Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
