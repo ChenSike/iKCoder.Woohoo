@@ -48,7 +48,7 @@ namespace WooHoo.Controllers
                 orm_Conf_All_Address.def = "0";
             query = "insert into conf_all_address(guid,name,country,state,city,district,address,phone) values(@guid,@name,@country,@state,@city,@district,@address,@phone)";
             /*dbConnection.Execute(query, orm_Conf_All_Address);*/
-            var id = dbConnection.Query<int>(query).FirstOrDefault();
+            var id = dbConnection.Query<int>(query, orm_Conf_All_Address).FirstOrDefault();
             Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
             conf_ResponseMessageObj.code = "200";
             conf_ResponseMessageObj.status = "ok";
