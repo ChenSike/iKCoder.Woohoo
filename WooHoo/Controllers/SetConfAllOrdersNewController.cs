@@ -103,18 +103,15 @@ namespace WooHoo.Controllers
                     foreach (JC_ConfAllOrders_Item shopingcartitem in jC_ConfAllOrders.items)
                     {
                         totalprice = totalprice + shopingcartitem.price;
-                        if (shopingcartitem.shopcartid > 0)
+                        if (shopingcartitem.shopcartid !=null && shopingcartitem.shopcartid > 0)
                         {
                             query = "delete from conf_all_shopcart where id=" + shopingcartitem.shopcartid;
-                            if (dbConnection.Execute(query) > 0)
-                            {
-                                query = "insert into conf_all_orders_proitems(proid,orderid,count,modell1,modell2) values(" + shopingcartitem.proid + ",'" + orderid + "'," + shopingcartitem.count + ",'" + shopingcartitem.modell1 + "','" + shopingcartitem.modell2 + "')";
-                                dbConnection.Execute(query);
-                            }
+                            dbConnection.Execute(query);                           
                         }
-                    }                                           
+                        query = "insert into conf_all_orders_proitems(proid,orderid,count,modell1,modell2) values(" + shopingcartitem.proid + ",'" + orderid + "'," + shopingcartitem.count + ",'" + shopingcartitem.modell1 + "','" + shopingcartitem.modell2 + "')";
+                        dbConnection.Execute(query);
+                    }
                     string cdt = DateTime.Now.ToString("yyyyMMdd");
-                    string returned = "0";
                     query = "insert into conf_all_orders(orderid,payed,cdt,returned,addressid,guid,totalprice,shiped,status) values('" + orderid + "','0','" + cdt + "','0','" + jC_ConfAllOrders.addressid + "','" + jC_ConfAllOrders.guid + "'," + totalprice + ",'0','1')";
                     dbConnection.Execute(query);
                     Orm.Orm_conf_all_address orm_Conf_All_Address = new Orm.Orm_conf_all_address();
