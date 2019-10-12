@@ -51,7 +51,7 @@ namespace WooHoo.Controllers
                     query = "select * from conf_all_proitems where id=" + orm_Conf_All_Orders_Proitems_Tmp.proid;
                     Orm.Orm_conf_all_proitems orm_Conf_All_Proitems = dbConnection.Query<Orm.Orm_conf_all_proitems>(query).FirstOrDefault();
                     newProItem.title = orm_Conf_All_Proitems.title;
-                    query = "select * from conf_all_proitems_imgs where id=" + orm_Conf_All_Orders_Proitems_Tmp.proid + " and titleimg='1'";
+                    query = "select * from conf_all_proitems_imgs where proid=" + orm_Conf_All_Orders_Proitems_Tmp.proid + " and titleimg='1'";
                     Orm.Orm_conf_all_proitems_imgs orm_conf_all_proitems_imgs = dbConnection.Query<Orm.Orm_conf_all_proitems_imgs>(query).FirstOrDefault();
                     newProItem.img = orm_conf_all_proitems_imgs.imgpath;
                     query = "select * from conf_all_proitems_price where proid=" + orm_Conf_All_Orders_Proitems_Tmp.proid + " and modell1='" + orm_Conf_All_Orders_Proitems_Tmp.modell1 + "' and modell2='" + orm_Conf_All_Orders_Proitems_Tmp.modell2 + "'";
