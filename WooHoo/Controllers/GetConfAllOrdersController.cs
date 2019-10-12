@@ -147,6 +147,7 @@ namespace WooHoo.Controllers
                 {
                     JC_OrderOutput newItem = new JC_OrderOutput();
                     newItem.orderid = orm_Conf_All_Orders_tmp.orderid;
+                    newItem.cdt = orm_Conf_All_Orders_tmp.cdt;
                     newItem.disorderid = orm_Conf_All_Orders_tmp.cdt + "_" + orm_Conf_All_Orders_tmp.id;
                     newItem.totalprice = orm_Conf_All_Orders_tmp.totalprice;
                     newItem.shiped = orm_Conf_All_Orders_tmp.shipped;
@@ -164,7 +165,7 @@ namespace WooHoo.Controllers
                         {
                             newProItem.title = orm_Conf_All_Proitems.title;
                         }
-                        query = "select * from conf_all_proitems_imgs where id=" + orm_Conf_All_Orders_Proitems_Tmp.proid + " and titleimg='1'";
+                        query = "select * from conf_all_proitems_imgs where proid=" + orm_Conf_All_Orders_Proitems_Tmp.proid + " and titleimg='1'";
                         Orm.Orm_conf_all_proitems_imgs orm_conf_all_proitems_imgs = dbConnection.Query<Orm.Orm_conf_all_proitems_imgs>(query).FirstOrDefault();
                         if (orm_conf_all_proitems_imgs != null)
                         {
@@ -177,8 +178,18 @@ namespace WooHoo.Controllers
                             newProItem.price = orm_Conf_All_Proitems_Price.discount > 0 ? orm_Conf_All_Proitems_Price.basic * (orm_Conf_All_Proitems_Price.discount / 100.0) : orm_Conf_All_Proitems_Price.basic;
                         }
                         newProItem.count = orm_Conf_All_Orders_Proitems_Tmp.count;
+                        newProItem.modell1 = orm_Conf_All_Orders_Proitems_Tmp.modell1;
+                        newProItem.modell2 = orm_Conf_All_Orders_Proitems_Tmp.modell2;                       
                         newItem.items.Add(newProItem);
 
+                    }
+                    query = "select * from conf_all_orders_address where orderid='" + newItem.orderid + "'";
+                    Orm.Orm_conf_all_orders_address orm_Conf_All_Orders_Address = dbConnection.Query<Orm.Orm_conf_all_orders_address>(query).FirstOrDefault();
+                    if (orm_Conf_All_Orders_Address != null)
+                    {
+                        newItem.address = orm_Conf_All_Orders_Address.address;
+                        newItem.name = orm_Conf_All_Orders_Address.name;
+                        newItem.phone = orm_Conf_All_Orders_Address.phone;                        
                     }
                     jC_OrderOutputs.Add(newItem);
 
