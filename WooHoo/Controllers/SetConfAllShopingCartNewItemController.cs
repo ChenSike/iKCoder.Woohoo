@@ -23,7 +23,7 @@ namespace WooHoo.Controllers
         [Filter.Filter_ConnectDB]
         public ActionResult Action(int proid,string guid,string modell1,string modell2)
         {
-            string query = "select * from conf_all_shopcart where proid=" + proid + " and guid='" + guid + "'";
+            string query = "select * from conf_all_shopcart where proid=" + proid + " and guid='" + guid + "' and modell1='" + modell1 + "' and modell2='" + modell2 + "'";
             Orm.Orm_conf_all_shopcart orm_Conf_All_Shopcart_Selected = dbConnection.Query<Orm.Orm_conf_all_shopcart>(query).FirstOrDefault();
             if (orm_Conf_All_Shopcart_Selected != null)
             {
@@ -34,7 +34,7 @@ namespace WooHoo.Controllers
                 orm_Conf_All_Shopcart.udt = DateTime.Now.ToString();
                 orm_Conf_All_Shopcart.modell1 = modell1;
                 orm_Conf_All_Shopcart.modell2 = modell2;
-                query = "update conf_all_shopcart set count=@count,udt=@udt where proid=@proid and guid=@guid";
+                query = "update conf_all_shopcart set count=@count,udt=@udt where proid=@proid and guid=@guid and modell1='" + modell1 + "' and modell2='" + modell2 + "'";
                 dbConnection.Execute(query, orm_Conf_All_Shopcart);
                 Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
                 conf_ResponseMessageObj.code = "200";
