@@ -16,10 +16,15 @@ namespace WooHoo.Controllers
     {
         
         [HttpGet]
-        
+
+        [Filter.Filter_ConnectDB]
         public ActionResult Action(string orderid)
         {
             string query = "delete from conf_all_orders where orderid='" + orderid + "'";
+            dbConnection.Execute(query);
+            query = "delete from conf_all_orders_proitems where orderid='" + orderid + "'";
+            dbConnection.Execute(query);
+            query = "delete from conf_all_orders_address where orderid='" + orderid + "'";
             dbConnection.Execute(query);
             Conf_ResponseMessage conf_ResponseMessageObj = new Conf_ResponseMessage();
             conf_ResponseMessageObj.code = "200";
