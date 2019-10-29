@@ -28,4 +28,3 @@ C:\iKCoder\iKCoder.Woohoo\WooHoo\obj\Debug\netcoreapp2.2\WooHoo.dll
 C:\iKCoder\iKCoder.Woohoo\WooHoo\obj\Debug\netcoreapp2.2\WooHoo.pdb
 C:\iKCoder\iKCoder.Woohoo\WooHoo\bin\Debug\netcoreapp2.2\appsettings.Development.json
 C:\iKCoder\iKCoder.Woohoo\WooHoo\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
-C:\iKCoder\iKCoder.Woohoo\WooHoo\obj\Debug\netcoreapp2.2\WooHoo.csprojAssemblyReference.cache
