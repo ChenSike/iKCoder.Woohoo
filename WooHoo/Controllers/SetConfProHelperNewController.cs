@@ -27,12 +27,12 @@ namespace WooHoo.Controllers
             try
             {
                 string imgpath_1 = "PRO_" + proid + ".fw.jpg";
-                query = "insert into conf_all_proitems_imgs(proid,imgpath,width,height,index,titleimg) values(" + proid + ",'" + imgpath_1 + "','0','0',1,'1')";
+                query = "insert into conf_all_proitems_imgs(proid,imgpath,width,height,`index`,titleimg) values(" + proid + ",'" + imgpath_1 + "','0','0',1,'1')";
                 dbConnection.Execute(query);
                 for (int i = 1; i <= pro_img_d_c; i++)
                 {
                     string imgpath = "PRO_" + proid + "D" + i + ".fw.jpg";
-                    query = "insert into conf_all_proitems_imgs(proid,imgpath,width,height,index,titleimg) values(" + proid + ",'" + imgpath + "','0','0'," + (++i) + ",'1')";
+                    query = "insert into conf_all_proitems_imgs(proid,imgpath,width,height,`index`,titleimg) values(" + proid + ",'" + imgpath + "','0','0'," + (++i) + ",'1')";
                     dbConnection.Execute(query);
                 }
             }
@@ -47,7 +47,7 @@ namespace WooHoo.Controllers
                 for (int i = 1; i <= pro_img_di_c; i++)
                 {
                     string imgpath = "PRO_" + proid + "DI" + i + ".fw.jpg";
-                    query = "insert into conf_all_proitems_imginfo(proid,index,img) values(" + proid + "," + i + "," + imgpath + ")";
+                    query = "insert into conf_all_proitems_imginfo(proid,`index`,img) values(" + proid + "," + i + "," + imgpath + ")";
                     dbConnection.Execute(query);
                 }
             }
