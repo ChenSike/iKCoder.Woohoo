@@ -47,7 +47,7 @@ namespace WooHoo.Controllers
                 for (int i = 1; i <= pro_img_di_c; i++)
                 {
                     string imgpath = "PRO_" + proid + "DI" + i + ".fw.jpg";
-                    query = "insert into conf_all_proitems_imginfo(proid,`index`,img) values(" + proid + "," + i + "," + imgpath + ")";
+                    query = "insert into conf_all_proitems_imginfo(proid,`index`,img) values(" + proid + "," + i + ",'" + imgpath + "')";
                     dbConnection.Execute(query);
                 }
             }
